@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>किसानी क्रांति बायो ऑर्गेनिक</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8; /* हल्का बैकग्राउंड */
+        }
+        .section-heading {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50%;
+            height: 3px;
+            background-color: #10B981; /* टेलविंड ग्रीन-500 */
+            border-radius: 9999px;
+        }
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .social-link {
+            transition: transform 0.2s ease-in-out;
+        }
+        .social-link:hover {
+            transform: scale(1.1);
+        }
+        .category-item {
+            background-color: #ffffff;
+            border-left: 4px solid #10B981; /* ऑर्गेनिक के लिए हरा बॉर्डर */
+            padding: 1rem;
+            border-radius: 0.75rem; /* अधिक गोल किनारे */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* गहरा शैडो */
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            position: relative; /* 3D प्रभाव के लिए */
+            transform-style: preserve-3d;
+        }
+        .category-item:hover {
+            transform: translateY(-5px) scale(1.02); /* थोड़ा बड़ा और ऊपर उठेगा */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* होवर पर और गहरा शैडो */
+        }
+        .category-item.poultry {
+            border-left: 4px solid #F59E0B; /* पोल्ट्री के लिए पीला बॉर्डर */
+        }
+        .next-page-link, .back-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #10B981;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .next-page-link:hover, .back-button:hover {
+            background-color: #059669;
+            transform: scale(1.05);
+        }
+        .back-button {
+            background-color: #6B7280; /* Gray for back button */
+            margin-right: 1rem;
+        }
+        .back-button:hover {
+            background-color: #4B5563;
+        }
+
+        /* पेज विशिष्ट स्टाइल */
+        .page-section {
+            display: none; /* डिफ़ॉल्ट रूप से छिपा हुआ */
+            min-height: calc(100vh - 150px); /* फुटर और हेडर के लिए जगह */
+        }
+        .page-section.active {
+            display: block; /* सक्रिय होने पर दिखाया गया */
+        }
+
+        /* फिक्स्ड संपर्क बटन */
+        .fixed-contact-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .fixed-contact-buttons a, .fixed-contact-buttons button {
+            background-color: #10B981;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+        .fixed-contact-buttons a:hover, .fixed-contact-buttons button:hover {
+            transform: scale(1.1);
+            background-color: #059669;
+        }
+        .fixed-contact-buttons button.register-btn {
+            border-radius: 9999px;
+            width: auto;
+            padding: 0 15px;
+            font-size: 1rem;
+        }
+        .fixed-contact-buttons a.whatsapp-btn {
+            background-color: #25D366;
+        }
+        .fixed-contact-buttons a.whatsapp-btn:hover {
+            background-color: #1DA851;
+        }
+
+        /* प्रोडक्ट कार्ड के लिए 3D प्रभाव */
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .product-card:hover {
+            transform: rotateY(5deg) scale(1.03); /* 3D रोटेशन और थोड़ा बड़ा */
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+        .product-card .icon-container {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #10B981, #34D399);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .product-card .icon-container i {
+            color: white;
+            font-size: 3rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .product-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #10B981;
+            margin-bottom: 0.5rem;
+        }
+        .product-card p {
+            font-size: 0.95rem;
+            color: #555;
+            flex-grow: 1;
+        }
+        .product-card .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #34D399;
+            margin-top: 1rem;
+        }
+        .product-card .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+        .product-card .product-actions button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            flex-grow: 1;
+            margin-top: 0; /* Override default margin */
+        }
+        .product-card .product-actions .add-to-cart-grid-btn {
+            background-color: #2563EB; /* Blue for Add to Cart */
+        }
+        .product-card .product-actions .add-to-cart-grid-btn:hover {
+            background-color: #1D4ED8;
+        }
+        .product-card .product-actions .learn-more-grid-btn {
+            background-color: #F59E0B; /* Orange for Learn More */
+        }
+        .product-card .product-actions .learn-more-grid-btn:hover {
+            background-color: #D97706;
+        }
+
+        .product-detail-container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .product-detail-container img {
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .cart-item {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+        .rating-star {
+            color: #FFD700; /* Gold color for stars */
+        }
+
+        /* Poultry Calculator Styles */
+        .poultry-calculator {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-top: 4px solid #F59E0B;
+        }
+        .poultry-calculator label {
+            font-weight: 600;
+            color: #4B5563;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .poultry-calculator input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #374151;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .poultry-calculator input[type="number"]:focus {
+            outline: none;
+            border-color: #F59E0B;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+        }
+        .poultry-calculator .result-box {
+            background-color: #FFFBEB;
+            border: 1px solid #FCD34D;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .poultry-calculator .result-box p {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: #4B5563;
+        }
+        .poultry-calculator .result-box p span {
+            font-weight: 700;
+            color: #D97706;
+        }
+        .poultry-calculator .result-box .total-profit {
+            font-size: 1.5rem;
+            color: #10B981;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-gradient-to-r from-green-600 to-green-800 text-white shadow-lg py-4 px-6 md:px-12 sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center flex-wrap">
+            <a href="#" class="text-3xl font-bold tracking-wide rounded-md p-2 hover:bg-green-700 transition duration-300" onclick="showPage('home-page')">किसानी क्रांति</a>
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-white border-white hover:text-green-200 hover:border-green-200">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                </button>
+            </div>
+            <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden" id="nav-content">
+                <ul class="text-lg lg:flex justify-end flex-1 items-center">
+                    <li class="lg:mr-6 my-2 lg:my-0"><a href="#" class="block py-2 px-4 rounded-md hover:bg-green-700 transition duration-300" onclick="showPage('about-page')">हमारे बारे में</a></li>
+                    <li class="lg:mr-6 my-2 lg:my-0"><a href="#" class="block py-2 px-4 rounded-md hover:bg-green-700 transition duration-300" onclick="showPage('home-page'); scrollToSection('all-products-section');">जैविक कृषि</a></li>
+                    <li class="lg:mr-6 my-2 lg:my-0"><a href="#" class="block py-2 px-4 rounded-md hover:bg-green-700 transition duration-300" onclick="showPage('poultry-farming-page')">मुर्गी पालन</a></li>
+                    <li class="lg:mr-6 my-2 lg:my-0"><a href="#" class="block py-2 px-4 rounded-md hover:bg-green-700 transition duration-300" onclick="showPage('shopping-cart-page')">शॉपिंग कार्ट <span id="cart-count" class="ml-1 px-2 py-1 text-xs font-bold bg-red-500 rounded-full">0</span></a></li>
+                    <li class="lg:mr-6 my-2 lg:my-0"><a href="#" class="block py-2 px-4 rounded-md hover:bg-green-700 transition duration-300" onclick="showPage('login-signup-page')">लॉगिन/साइनअप</a></li>
+                    <li class="my-2 lg:my-0"><a href="#" class="block py-2 px-4 rounded-md hover:bg-green-700 transition duration-300" onclick="showPage('contact-page')">संपर्क करें</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="fixed-contact-buttons">
+        <a href="tel:9588323460" class="call-btn" aria-label="कॉल करें"><i class="fas fa-phone-alt"></i></a>
+        <a href="sms:9588323460" class="message-btn" aria-label="मैसेज करें"><i class="fas fa-sms"></i></a>
+        <a href="https://wa.me/9588323460" target="_blank" class="whatsapp-btn" aria-label="व्हाट्सएप करें"><i class="fab fa-whatsapp"></i></a>
+        <button class="register-btn" onclick="showPage('login-signup-page')">रजिस्टर करें</button>
+    </div>
+
+    <div id="app-container">
+
+        <section id="home-page" class="page-section active">
+            <div class="relative bg-cover bg-center h-96 flex items-center justify-center text-white" style="background-image: url('https://placehold.co/1200x500/10B981/FFFFFF?text=Kisani+Kranti');">
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+                <div class="relative z-10 text-center p-4">
+                    <h1 class="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">किसानी क्रांति बायो ऑर्गेनिक</h1>
+                    <p class="text-xl md:text-2xl font-light mb-8 drop-shadow-md">भारत के आधुनिक बायो-फर्टिलाइज़र आंदोलन के अग्रणी</p>
+                    <div class="flex justify-center mb-6">
+                        <input type="text" id="home-search-bar" placeholder="उत्पाद खोजें..." class="w-full max-w-md p-3 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-800" onkeyup="searchProducts(this.value)">
+                    </div>
+                    <a href="#" class="bg-white text-green-700 hover:bg-green-100 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105" onclick="scrollToSection('all-products-section')">हमारी सेवाएँ देखें</a>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 py-12 px-6 md:px-12">
+                <div class="container mx-auto text-center">
+                    <h2 class="text-3xl font-bold mb-8 section-heading mx-auto">श्रेणियाँ</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 flex flex-col items-center" onclick="scrollToSection('all-products-section'); document.getElementById('filter-category').value='bio_fertilizers'; renderProductsGrid();">
+                            <i class="fas fa-leaf text-green-600 text-4xl mb-3"></i>
+                            <span class="text-lg font-semibold text-gray-700">जैव-उर्वरक</span>
+                        </a>
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 flex flex-col items-center" onclick="scrollToSection('all-products-section'); document.getElementById('filter-category').value='bio_pesticides'; renderProductsGrid();">
+                            <i class="fas fa-bug text-red-600 text-4xl mb-3"></i>
+                            <span class="text-lg font-semibold text-gray-700">जैव-कीटनाशक</span>
+                        </a>
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 flex flex-col items-center" onclick="scrollToSection('all-products-section'); document.getElementById('filter-category').value='bio_stimulants'; renderProductsGrid();">
+                            <i class="fas fa-seedling text-blue-600 text-4xl mb-3"></i>
+                            <span class="text-lg font-semibold text-gray-700">जैव-उत्तेजक</span>
+                        </a>
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 flex flex-col items-center" onclick="showPage('poultry-farming-page')">
+                            <i class="fas fa-egg text-yellow-600 text-4xl mb-3"></i>
+                            <span class="text-lg font-semibold text-gray-700">मुर्गी पालन</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white py-16 px-6 md:px-12">
+                <div class="container mx-auto text-center">
+                    <h2 class="text-4xl font-bold mb-12 section-heading mx-auto">फीचर्ड उत्पाद और डील्स</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="product-card">
+                            <img src="https://placehold.co/300x200/D1FAE5/065F46?text=Featured+Product+1" alt="फीचर्ड उत्पाद 1" class="w-full h-48 object-cover rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold text-green-700">नैनो-उर्वरक</h3>
+                            <p class="text-gray-600 mb-2">उच्च दक्षता वाला नैनो-उर्वरक, फसल की उपज बढ़ाता है।</p>
+                            <div class="text-xl font-bold text-green-600 mb-2">₹550 <span class="text-sm text-red-500 line-through">₹600</span></div>
+                            <div class="text-yellow-500 mb-4">
+                                <i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star-half-alt rating-star"></i> (4.5)
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart-grid-btn text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 transition duration-300" onclick="addToCart('nano_fertilizers', 1); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus mr-2"></i> कार्ट में जोड़ें
+                                </button>
+                                <button class="learn-more-grid-btn text-white font-bold py-2 px-4 rounded-full hover:bg-yellow-700 transition duration-300" onclick="showPage('product-detail-page', 'nano_fertilizers'); event.stopPropagation();">
+                                    और जानें
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://placehold.co/300x200/ECFDF5/065F46?text=Featured+Product+2" alt="फीचर्ड उत्पाद 2" class="w-full h-48 object-cover rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold text-green-700">जैव-कवकनाशी</h3>
+                            <p class="text-gray-600 mb-2">फसल रोगों से प्राकृतिक सुरक्षा।</p>
+                            <div class="text-xl font-bold text-green-600 mb-2">₹380 <span class="text-sm text-red-500 line-through">₹420</span></div>
+                            <div class="text-yellow-500 mb-4">
+                                <i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="far fa-star rating-star"></i> (4.0)
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart-grid-btn text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 transition duration-300" onclick="addToCart('bio_fungicides', 1); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus mr-2"></i> कार्ट में जोड़ें
+                                </button>
+                                <button class="learn-more-grid-btn text-white font-bold py-2 px-4 rounded-full hover:bg-yellow-700 transition duration-300" onclick="showPage('product-detail-page', 'bio_fungicides'); event.stopPropagation();">
+                                    और जानें
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://placehold.co/300x200/A7F3D0/065F46?text=Featured+Product+3" alt="फीचर्ड उत्पाद 3" class="w-full h-48 object-cover rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold text-green-700">नीम केक</h3>
+                            <p class="text-gray-600 mb-2">मिट्टी के स्वास्थ्य और कीट नियंत्रण के लिए जैविक समाधान।</p>
+                            <div class="text-xl font-bold text-green-600 mb-2">₹120 <span class="text-sm text-red-500 line-through">₹150</span></div>
+                            <div class="text-yellow-500 mb-4">
+                                <i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i> (5.0)
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart-grid-btn text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 transition duration-300" onclick="addToCart('neem_cake', 1); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus mr-2"></i> कार्ट में जोड़ें
+                                </button>
+                                <button class="learn-more-grid-btn text-white font-bold py-2 px-4 rounded-full hover:bg-yellow-700 transition duration-300" onclick="showPage('product-detail-page', 'neem_cake'); event.stopPropagation();">
+                                    और जानें
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="all-products-section" class="container mx-auto py-16 px-6 md:px-12">
+                <h2 class="text-4xl font-bold text-center mb-12 section-heading mx-auto">हमारे सभी उत्पाद</h2>
+                <p class="text-center text-lg mb-8 max-w-2xl mx-auto">
+                    हमारी विस्तृत जैविक उत्पाद श्रृंखला का अन्वेषण करें, जो फसल वृद्धि, मिट्टी के स्वास्थ्य और स्थिरता को बढ़ाने के लिए तैयार है।
+                </p>
+
+                <div class="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-xl shadow-md mb-8">
+                    <div class="mb-4 md:mb-0">
+                        <label for="sort-by" class="font-semibold text-gray-700 mr-2">सॉर्ट करें:</label>
+                        <select id="sort-by" class="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" onchange="renderProductsGrid()">
+                            <option value="popularity">लोकप्रियता</option>
+                            <option value="price-asc">मूल्य: कम से ज्यादा</option>
+                            <option value="price-desc">मूल्य: ज्यादा से कम</option>
+                            <option value="newest">नवीनतम</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filter-category" class="font-semibold text-gray-700 mr-2">फ़िल्टर करें:</label>
+                        <select id="filter-category" class="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" onchange="renderProductsGrid()">
+                            <option value="all">सभी श्रेणियाँ</option>
+                            <option value="bio_fertilizers">जैव-उर्वरक</option>
+                            <option value="bio_pesticides">जैव-कीटनाशक</option>
+                            <option value="bio_stimulants">जैव-उत्तेजक</option>
+                            <option value="decomposers">अपघटक</option>
+                            <option value="micro_nutrients">सूक्ष्म पोषक तत्व</option>
+                            <option value="nano_tech">नैनो-प्रौद्योगिकी</option>
+                            <option value="soil_conditioners">मिट्टी कंडीशनर</option>
+                            <option value="probiotics">प्रोबायोटिक्स</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    </div>
+            </div>
+
+            <div id="about-section-home" class="container mx-auto py-16 px-6 md:px-12">
+                <h2 class="text-4xl font-bold text-center mb-12 section-heading mx-auto">हमारे बारे में</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-12">
+                    <div class="md:w-1/2 text-lg leading-relaxed">
+                        <p class="mb-4">
+                            <span class="font-semibold text-green-700">🌱 किसानी क्रांति बायो ऑर्गेनिक में आपका स्वागत है! 🌱</span> हम भारत के आधुनिक बायो-फर्टिलाइज़र आंदोलन के अग्रणी हैं, जो पूरे देश में किसानों का समर्थन करते हैं।
+                        </p>
+                        <p class="mb-4">
+                            हमारा मिशन है कि हम किसानों को उच्च गुणवत्ता वाले जैविक उत्पाद प्रदान कर सकें, जो सतत कृषि और हरित भविष्य को प्रोत्साहित करते हैं।
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-semibold text-green-700">🌿 2009 में स्थापित,</span> हमारी प्रतिबद्धता यह सुनिश्चित करती है कि हम आपको सर्वोत्तम मार्गदर्शन दें।
+                        </p>
+                        <p class="mb-4">
+                            आइए, मिलकर प्रकृति के साथ बढ़ें! 🌍🌱
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://placehold.co/600x400/D1FAE5/10B981?text=Organic+Farming" alt="Organic Farming" class="rounded-xl shadow-xl border-4 border-green-200">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-green-700 text-white py-16 px-6 md:px-12">
+                <div class="container mx-auto text-center">
+                    <h2 class="text-4xl font-bold mb-8">संपर्क करें</h2>
+                    <p class="text-lg mb-8 max-w-2xl mx-auto">अधिक जानकारी के लिए या हमारे साथ जुड़ने के लिए, कृपया हमसे संपर्क करें:</p>
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-12">
+                        <div class="flex items-center text-xl">
+                            <i class="fas fa-phone-alt text-green-300 mr-3"></i>
+                            <a href="tel:9588323460" class="hover:underline">95883 23460</a>
+                        </div>
+                        <div class="flex items-center text-xl">
+                            <i class="fas fa-envelope text-green-300 mr-3"></i>
+                            <a href="mailto:KISANIKRANTI@gmail.com" class="hover:underline">KISANIKRANTI@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <h3 class="text-3xl font-bold mb-6">सोशल मीडिया पर जुड़ें</h3>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://instagram.com/kisanikranti" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com/Kisanikranti" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/9588323460" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="WhatsApp Customer Care">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VahuPvW1CYoJyiYxPe3I" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="WhatsApp Channel">
+                            <i class="fab fa-whatsapp-square"></i>
+                        </a>
+                        <a href="https://in.pinterest.com/kisanikranti" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="Pinterest">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                    <p class="text-lg mt-8">आइए, मिलकर प्रकृति के साथ बढ़ें! 🌍🌱</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto">हमारे बारे में</h2>
+                    <div></div> </div>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-12">
+                    <div class="md:w-1/2 text-lg leading-relaxed">
+                        <p class="mb-4">
+                            <span class="font-semibold text-green-700">🌱 किसानी क्रांति बायो ऑर्गेनिक में आपका स्वागत है! 🌱</span> हम भारत के आधुनिक बायो-फर्टिलाइज़र आंदोलन के अग्रणी हैं, जो पूरे देश में किसानों का समर्थन करते हैं।
+                        </p>
+                        <p class="mb-4">
+                            हमारा मिशन है कि हम किसानों को उच्च गुणवत्ता वाले जैविक उत्पाद प्रदान कर सकें, जो सतत कृषि और हरित भविष्य को प्रोत्साहित करते हैं।
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-semibold text-green-700">🌿 2009 में स्थापित,</span> हमारी प्रतिबद्धता यह सुनिश्चित करती है कि हम आपको सर्वोत्तम मार्गदर्शन दें।
+                        </p>
+                        <p class="mb-4">
+                            आइए, मिलकर प्रकृति के साथ बढ़ें! 🌍🌱
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://placehold.co/600x400/D1FAE5/10B981?text=Organic+Farming" alt="Organic Farming" class="rounded-xl shadow-xl border-4 border-green-200">
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12 mb-12">
+                <a href="#" class="next-page-link" onclick="showPage('home-page'); scrollToSection('all-products-section');">
+                    जैविक कृषि उत्पाद पेज पर जाएँ <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="text-center mt-12 p-6 bg-green-100 rounded-xl shadow-inner">
+                <h3 class="text-2xl font-bold text-green-800 mb-4">अधिक जानकारी के लिए संपर्क करें</h3>
+                <p class="text-lg text-gray-700 mb-4">📞 95883 23460 | 📧 KISANIKRANTI@gmail.com</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://instagram.com/kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com/Kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/9588323460" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Customer Care">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VahuPvW1CYoJyiYxPe3I" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Channel">
+                        <i class="fab fa-whatsapp-square"></i>
+                    </a>
+                    <a href="https://in.pinterest.com/kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Pinterest">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="product-detail-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 id="product-detail-title" class="text-4xl font-bold text-center section-heading mx-auto"></h2>
+                    <div></div> </div>
+                <div class="product-detail-container">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/2">
+                            <img id="product-detail-image" src="https://placehold.co/600x400/E0F2F7/000000?text=Product+Image" alt="उत्पाद छवि" class="w-full h-auto object-cover">
+                        </div>
+                        <div class="md:w-1/2 flex flex-col justify-between">
+                            <div>
+                                <p id="product-detail-description" class="text-lg text-gray-700 mb-4"></p>
+                                <p id="product-detail-type" class="text-md text-gray-600 mb-2"></p>
+                                <p id="product-detail-components" class="text-md text-gray-600 mb-2"></p>
+                                <p id="product-detail-method" class="text-md text-gray-600 mb-2"></p>
+                                <p id="product-detail-usage" class="text-md text-gray-600 mb-2"></p>
+                                <p id="product-detail-price" class="text-3xl font-bold text-green-700 mt-4">मूल्य: ₹0</p>
+
+                                <div id="product-variants" class="mt-4">
+                                    <h4 class="font-semibold text-gray-700 mb-2">विकल्प:</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="px-4 py-2 border rounded-full text-sm hover:bg-gray-200">500g</button>
+                                        <button class="px-4 py-2 border rounded-full text-sm hover:bg-gray-200">1kg</button>
+                                        <button class="px-4 py-2 border rounded-full text-sm hover:bg-gray-200">5kg</button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 flex items-center">
+                                    <label for="product-quantity" class="font-semibold text-gray-700 mr-2">मात्रा:</label>
+                                    <input type="number" id="product-quantity" value="1" min="1" class="w-20 p-2 border rounded-md text-center focus:outline-none focus:ring-2 focus:ring-green-500" oninput="updateProductDetailPrice()">
+                                </div>
+                                <p id="product-calculated-price" class="text-2xl font-bold text-green-800 mt-2">कुल मूल्य: ₹0</p>
+
+
+                                <div class="mt-6">
+                                    <h4 class="font-semibold text-gray-700 mb-2">रेटिंग और समीक्षाएँ:</h4>
+                                    <div id="product-reviews" class="flex items-center text-yellow-500 mb-2">
+                                        <i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="fas fa-star rating-star"></i><i class="far fa-star rating-star"></i> (4.0/5)
+                                        <span class="text-gray-600 ml-2">(12 समीक्षाएँ)</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500">अभी तक कोई समीक्षा नहीं है। अपनी समीक्षा सबमिट करने वाले पहले व्यक्ति बनें!</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                                <button id="add-to-cart-button" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-full hover:bg-blue-700 transition duration-300 transform hover:scale-105 flex-grow">
+                                    <i class="fas fa-cart-plus mr-2"></i> कार्ट में जोड़ें
+                                </button>
+                                <button id="buy-now-button" class="bg-yellow-600 text-white font-bold py-3 px-6 rounded-full hover:bg-yellow-700 transition duration-300 transform hover:scale-105 flex-grow">
+                                    <i class="fas fa-truck mr-2"></i> अभी खरीदें
+                                </button>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-4 text-center">आज ऑर्डर करें, कल प्राप्त करें! (शहर की उपलब्धता के आधार पर)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page'); scrollToSection('all-products-section');">
+                        सभी जैविक उत्पाद देखें <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="text-center mt-12 p-6 bg-green-100 rounded-xl shadow-inner">
+                    <h3 class="text-2xl font-bold text-green-800 mb-4">अधिक जानकारी के लिए संपर्क करें</h3>
+                    <p class="text-lg text-gray-700 mb-4">📞 95883 23460 | 📧 KISANIKRANTI@gmail.com</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://instagram.com/kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com/Kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/9588323460" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Customer Care">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VahuPvW1CYoJyiYxPe3I" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Channel">
+                            <i class="fab fa-whatsapp-square"></i>
+                        </a>
+                        <a href="https://in.pinterest.com/kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Pinterest">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="shopping-cart-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto">शॉपिंग कार्ट</h2>
+                    <div></div> </div>
+                <div id="cart-items-container" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <p id="empty-cart-message" class="text-center text-gray-600 text-lg">आपका कार्ट खाली है।</p>
+                </div>
+                <div id="cart-summary" class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="flex justify-between items-center text-2xl font-bold text-gray-800 border-b pb-4 mb-4">
+                        <span>कुल योग:</span>
+                        <span id="cart-total">₹0</span>
+                    </div>
+                    <button class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-full hover:bg-green-700 transition duration-300 transform hover:scale-105" onclick="showPage('checkout-page')">
+                        <i class="fas fa-cash-register mr-2"></i> चेकआउट करें
+                    </button>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page'); scrollToSection('all-products-section');">
+                        और उत्पाद खरीदें <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="text-center mt-12 p-6 bg-green-100 rounded-xl shadow-inner">
+                    <h3 class="text-2xl font-bold text-green-800 mb-4">अधिक जानकारी के लिए संपर्क करें</h3>
+                    <p class="text-lg text-gray-700 mb-4">📞 95883 23460 | 📧 KISANIKRANTI@gmail.com</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://instagram.com/kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com/Kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/9588323460" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Customer Care">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VahuPvW1CYoJyiYxPe3I" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Channel">
+                            <i class="fab fa-whatsapp-square"></i>
+                        </a>
+                        <a href="https://in.pinterest.com/kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Pinterest">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="checkout-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto">चेकआउट</h2>
+                    <div></div> </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">1. शिपिंग पता</h3>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="पूरा नाम" class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <input type="text" placeholder="पता पंक्ति 1" class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <input type="text" placeholder="पता पंक्ति 2 (वैकल्पिक)" class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <input type="text" placeholder="शहर" class="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <input type="text" placeholder="राज्य" class="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <input type="text" placeholder="पिनकोड" class="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <input type="tel" placeholder="मोबाइल नंबर" class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </form>
+
+                    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-6">2. शिपिंग विधि</h3>
+                    <div class="space-y-4">
+                        <label class="flex items-center p-4 border rounded-md cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="shipping-method" value="standard" checked class="form-radio text-green-600" onchange="renderCheckoutSummary()">
+                            <span class="ml-3 text-lg font-medium">मानक डिलीवरी (3-5 दिन) - ₹50</span>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-md cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="shipping-method" value="express" class="form-radio text-green-600" onchange="renderCheckoutSummary()">
+                            <span class="ml-3 text-lg font-medium">एक्सप्रेस डिलीवरी (आज ऑर्डर करें, कल प्राप्त करें) - ₹150</span>
+                        </label>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-6">3. भुगतान विधि</h3>
+                    <div class="space-y-4">
+                        <label class="flex items-center p-4 border rounded-md cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="payment-method" value="upi" checked class="form-radio text-green-600">
+                            <span class="ml-3 text-lg font-medium">UPI</span>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-md cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="payment-method" value="card" class="form-radio text-green-600">
+                            <span class="ml-3 text-lg font-medium">क्रेडिट/डेबिट कार्ड</span>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-md cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="payment-method" value="cod" class="form-radio text-green-600">
+                            <span class="ml-3 text-lg font-medium">कैश ऑन डिलीवरी (COD)</span>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-md cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="payment-method" value="wallet" class="form-radio text-green-600">
+                            <span class="ml-3 text-lg font-medium">डिजिटल वॉलेट</span>
+                        </label>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-6">4. ऑर्डर सारांश</h3>
+                    <div id="checkout-order-summary" class="border rounded-md p-4 bg-gray-50">
+                        <div class="flex justify-between text-lg font-semibold py-2 border-b">
+                            <span>उत्पाद कुल:</span>
+                            <span id="checkout-product-total">₹0</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-semibold py-2 border-b">
+                            <span>शिपिंग:</span>
+                            <span id="checkout-shipping-cost">₹0</span>
+                        </div>
+                        <div class="flex justify-between text-xl font-bold py-2 text-green-700">
+                            <span>कुल देय:</span>
+                            <span id="checkout-grand-total">₹0</span>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-full hover:bg-green-700 transition duration-300 transform hover:scale-105 mt-8" onclick="placeOrder()">
+                        <i class="fas fa-check-circle mr-2"></i> ऑर्डर प्लेस करें
+                    </button>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('shopping-cart-page')">
+                        कार्ट पर वापस जाएँ <i class="fas fa-arrow-left ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="order-confirmation-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12 text-center">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto text-green-700">आपका ऑर्डर सफलतापूर्वक प्राप्त हुआ!</h2>
+                    <div></div> </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <i class="fas fa-check-circle text-green-500 text-8xl mb-6 animate-bounce"></i>
+                    <p class="text-2xl font-semibold text-gray-800 mb-4">धन्यवाद! आपका ऑर्डर जल्द ही संसाधित किया जाएगा।</p>
+                    <p class="text-xl text-gray-700 mb-6">आज ऑर्डर करें, कल प्राप्त करें! (शहर की उपलब्धता के आधार पर)</p>
+                    <p class="text-lg text-gray-600">किसी भी प्रश्न के लिए, कृपया हमसे संपर्क करें।</p>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page')">
+                        होम पेज पर वापस जाएँ <i class="fas fa-home ml-2"></i>
+                    </a>
+                </div>
+                <div class="text-center mt-12 p-6 bg-green-100 rounded-xl shadow-inner">
+                    <h3 class="text-2xl font-bold text-green-800 mb-4">अधिक जानकारी के लिए संपर्क करें</h3>
+                    <p class="text-lg text-gray-700 mb-4">📞 95883 23460 | 📧 KISANIKRANTI@gmail.com</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://instagram.com/kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com/Kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/9588323460" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Customer Care">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VahuPvW1CYoJyiYxPe3I" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Channel">
+                            <i class="fab fa-whatsapp-square"></i>
+                        </a>
+                        <a href="https://in.pinterest.com/kisanikranti" target="_blank" class="text-green-700 hover:text-green-900 transition duration-300 text-3xl social-link" aria-label="Pinterest">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="poultry-farming-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto">मुर्गी पालन व्यवसाय</h2>
+                    <div></div> </div>
+                <p class="text-center text-lg mb-8 max-w-2xl mx-auto">
+                    किसानी क्रांति में, हम मुर्गी पालन में स्थायी और लाभदायक अवसरों के लिए प्रतिबद्ध हैं। हम पशु कल्याण और पर्यावरणीय प्रबंधन को प्राथमिकता देते हुए प्रीमियम गुणवत्ता वाले पोल्ट्री और भेड़ उत्पादों को वितरित करने पर ध्यान केंद्रित करते हैं।
+                </p>
+
+                <div class="poultry-calculator">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-6 text-center">मुर्गी पालन लाभ कैलकुलेटर</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="calc-initial-investment">प्रारंभिक निवेश (₹):</label>
+                            <input type="number" id="calc-initial-investment" value="2500000" min="0" oninput="calculatePoultryProfit()">
+                        </div>
+                        <div>
+                            <label for="calc-num-chicks">चूजों की संख्या:</label>
+                            <input type="number" id="calc-num-chicks" value="12500" min="0" oninput="calculatePoultryProfit()">
+                        </div>
+                        <div>
+                            <label for="calc-male-chicks-percent">नर चूजे (%):</label>
+                            <input type="number" id="calc-male-chicks-percent" value="10" min="0" max="100" oninput="calculatePoultryProfit()">
+                        </div>
+                        <div>
+                            <label for="calc-egg-price">प्रति अंडा मूल्य (₹):</label>
+                            <input type="number" id="calc-egg-price" value="1.50" min="0" step="0.01" oninput="calculatePoultryProfit()">
+                        </div>
+                        <div>
+                            <label for="calc-monthly-roi-percent">मासिक ROI (%) (निवेश पर):</label>
+                            <input type="number" id="calc-monthly-roi-percent" value="6" min="0" step="0.1" oninput="calculatePoultryProfit()">
+                        </div>
+                        <div>
+                            <label for="calc-egg-production-start-months">अंडा उत्पादन शुरू (महीने):</label>
+                            <input type="number" id="calc-egg-production-start-months" value="4" min="1" oninput="calculatePoultryProfit()">
+                        </div>
+                        <div>
+                            <label for="calc-daily-egg-production-per-hen">प्रति मुर्गी दैनिक अंडा उत्पादन (अनुमानित):</label>
+                            <input type="number" id="calc-daily-egg-production-per-hen" value="0.8" min="0" step="0.1" oninput="calculatePoultryProfit()">
+                        </div>
+                        <div>
+                            <label for="calc-months-to-calculate">गणना के लिए महीने:</label>
+                            <input type="number" id="calc-months-to-calculate" value="40" min="1" oninput="calculatePoultryProfit()">
+                        </div>
+                    </div>
+                    <div class="result-box">
+                        <p>अनुमानित मादा मुर्गियां: <span id="res-female-hens">0</span></p>
+                        <p>मासिक आय (निवेश पर): <span id="res-monthly-roi-income">₹0</span></p>
+                        <p>अनुमानित दैनिक अंडा उत्पादन: <span id="res-daily-egg-production">0</span> अंडे</p>
+                        <p>अनुमानित मासिक अंडा राजस्व: <span id="res-monthly-egg-revenue">₹0</span></p>
+                        <p>कुल अनुमानित रिटर्न (<span id="res-total-months">0</span> महीने): <span id="res-total-estimated-return" class="total-profit">₹0</span></p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-12 border-t-4 border-yellow-600">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-4">हमारा विज़न और मिशन</h3>
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/2">
+                            <h4 class="text-2xl font-semibold mb-2">विज़न</h4>
+                            <p class="text-gray-700">मुर्गी पालन और भेड़ पालन में एक वैश्विक नेता बनना, स्थायी कृषि, असाधारण उत्पाद गुणवत्ता और खेती के तरीकों में नवाचार के प्रति हमारे समर्पण के लिए मनाया जाना। हम खाद्य उद्योग में पर्यावरणीय स्थिरता और उत्कृष्टता के लिए एक बेंचमार्क स्थापित करने की आकांक्षा रखते हैं, एक ऐसा भविष्य बनाना जो लोगों और ग्रह दोनों को लाभ पहुंचाए।</p>
+                        </div>
+                        <div class="md:w-1/2">
+                            <h4 class="text-2xl font-semibold mb-2">मिशन</h4>
+                            <p class="text-gray-700">पशु कल्याण, पर्यावरणीय जिम्मेदारी और सामुदायिक विकास पर जोर देने वाले नैतिक खेती के तरीकों द्वारा निर्देशित, प्रीमियम पोल्ट्री और भेड़ उत्पादों का स्थायी रूप से उत्पादन करना। हमारा लक्ष्य अभिनव खेती के तरीकों को जिम्मेदार कृषि प्रबंधन के साथ एकीकृत करके खाद्य सुरक्षा को बढ़ाना और स्थानीय अर्थव्यवस्थाओं को मजबूत करना है।</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-12 border-t-4 border-yellow-600">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-6">मुर्गी पालन परियोजनाएँ और सुविधाएँ</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-4 rounded-lg bg-yellow-50 shadow-md">
+                            <h4 class="text-xl font-semibold mb-2 text-yellow-800"><i class="fas fa-warehouse mr-2"></i> कोल्ड स्टोरेज</h4>
+                            <p class="text-gray-700 text-sm">किसानी क्रांति ने एक अत्याधुनिक 150 टन क्षमता वाली डीप फ्रीजर स्टोरेज यूनिट स्थापित की है। यह उन्नत सुविधा अंडे और पोल्ट्री उत्पादों को 10 साल तक सुरक्षित रूप से संरक्षित करने के लिए डिज़ाइन की गई है, जिससे उनकी गुणवत्ता, ताजगी और पोषण मूल्य समय के साथ बरकरार रहते हैं। यह पहल "स्वस्थ और आत्मनिर्भर भारत" के निर्माण के किसानी क्रांति के मिशन को मजबूत करती है।</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-yellow-50 shadow-md">
+                            <h4 class="text-xl font-semibold mb-2 text-yellow-800"><i class="fas fa-egg mr-2"></i> हैचरी उद्योग</h4>
+                            <p class="text-gray-700 text-sm">किसानी क्रांति हैचरी परियोजना गुणवत्ता, नवाचार और स्थिरता के माध्यम से भारत में पोल्ट्री उद्योग को एक नई दिशा देने के लिए समर्पित है। हमारा हैचरी केंद्र पूरे देश में पोल्ट्री फार्मों को उच्च गुणवत्ता वाले चूजे प्रदान करके एक स्वस्थ भारत की नींव रख रहा है।</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-yellow-50 shadow-md">
+                            <h4 class="text-xl font-semibold mb-2 text-yellow-800"><i class="fas fa-utensils mr-2"></i> पीएफसी रेस्टोरेंट्स (भविष्य की परियोजना)</h4>
+                            <p class="text-gray-700 text-sm">किसानी क्रांति की भविष्य की परियोजना का लक्ष्य KFC के समान PFC रेस्टोरेंट्स लॉन्च करना है, जो उच्च गुणवत्ता वाले भोजन और असाधारण सेवा प्रदान करेंगे। योजना में फ्रेंचाइजी वितरित करना शामिल है, जिससे व्यापक व्यावसायिक अवसर पैदा होंगे।</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-yellow-50 shadow-md">
+                            <h4 class="text-xl font-semibold mb-2 text-yellow-800"><i class="fas fa-industry mr-2"></i> अंडा पाउडर उद्योग</h4>
+                            <p class="text-gray-700 text-sm">भारत में अंडा पाउडर बाजार में अगले 5 वर्षों में महत्वपूर्ण वृद्धि होने की उम्मीद है। यह खाद्य प्रसंस्करण, बेकरी और पोषण उद्योगों में बढ़ती मांग, निर्यात में वृद्धि और प्रोटीन युक्त, शेल्फ-स्थिर खाद्य उत्पादों के बारे में बढ़ती जागरूकता से प्रेरित है।</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-yellow-50 shadow-md">
+                            <h4 class="text-xl font-semibold mb-2 text-yellow-800"><i class="fas fa-truck mr-2"></i> डिलीवरी ऐप (आगामी परियोजना)</h4>
+                            <p class="text-gray-700 text-sm">पोल्ट्री उत्पादों की आसान और कुशल डिलीवरी के लिए एक समर्पित डिलीवरी ऐप विकसित किया जा रहा है।</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-yellow-50 shadow-md">
+                            <h4 class="text-xl font-semibold mb-2 text-yellow-800"><i class="fas fa-farm mr-2"></i> किसानी क्रांति रनिंग पोल्ट्री फार्म (20+ फार्म)</h4>
+                            <p class="text-gray-700 text-sm">किसानी क्रांति के पास 20 से अधिक सक्रिय पोल्ट्री फार्म हैं, जो हमारे ग्राहकों और भागीदारों के लिए एक मजबूत और विश्वसनीय आपूर्ति श्रृंखला सुनिश्चित करते हैं।</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-3xl font-bold text-center text-yellow-700 mb-8 section-heading mx-auto">हमारी निवेश योजनाएँ</h3>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-12 border-t-4 border-yellow-600 card">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-4">🌾 मुर्गी पालन निवेश प्लान 🐔</h3>
+                    <p class="text-lg mb-4">किसानी क्रांति का पोल्ट्री फार्मिंग निवेश प्लान आपके लिए सुनहरा अवसर!</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><span class="font-semibold">निवेश:</span> ₹25,00,000</li>
+                        <li><span class="font-semibold">लाभ:</span> 12,500 चूजे (10% नर, 90% मादा) आपके फार्म के लिए।</li>
+                        <li><span class="font-semibold">मासिक आय (निवेश पर 6% रिटर्न):</span> ₹1,25,000/माह।</li>
+                        <li><span class="font-semibold">4 महीने बाद अनुमानित अंडा उत्पादन:</span> ~8,000 अंडे/दिन @ ₹1.50/अंडा = ₹3,60,000/माह।</li>
+                        <li><span class="font-semibold">कुल अनुमानित रिटर्न:</span> ~40 महीनों में ₹1,36,40,000 (निवेश से ₹50,00,000 + अंडे से ₹86,40,000)।</li>
+                    </ul>
+                    <div class="mt-6 border-t pt-4">
+                        <p class="text-gray-600"><span class="font-semibold">आपकी जिम्मेदारी:</span> फार्म, श्रम, पानी, बिजली।</p>
+                        <p class="text-gray-600"><span class="font-semibold">किसानी क्रांति की जिम्मेदारी:</span> चूजे, चारा, और पशु चिकित्सा सहायता।</p>
+                        <p class="text-sm text-gray-500 mt-2">नोट: शर्तें लागू, समझौते के अनुसार।</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-12 border-t-4 border-yellow-600 card">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-4">🐓 फार्मिंग प्रॉफिट प्लान 🌟</h3>
+                    <p class="text-lg mb-4">मुर्गी पालन के जरिए अपनी आय बढ़ाएं, किसानी क्रांति के फार्मिंग प्रॉफिट प्लान के साथ!</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><span class="font-semibold">न्यूनतम निवेश:</span> ₹10,000 (10,000 के गुणकों में)।</li>
+                        <li><span class="font-semibold">मासिक लाभ दर:</span>
+                            <ul class="list-circle list-inside ml-4">
+                                <li>₹10,000–₹5,00,000: 6%।</li>
+                                <li>₹5,10,000–₹25,00,000: 7%।</li>
+                                <li>₹25,00,000 से अधिक: 8%।</li>
+                            </ul>
+                        </li>
+                        <li><span class="font-semibold">कुल रिटर्न:</span> निवेश का 3 गुना, मासिक वितरित।</li>
+                    </ul>
+                    <p class="text-gray-600 mt-6"><span class="font-semibold">क्यों चुनें?:</span> कम निवेश, टिकाऊ व्यवसाय, और विशेषज्ञ सहायता।</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-12 border-t-4 border-yellow-600 card">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-4">🤝 एफिलिएट प्रॉफिट प्लान 🤑</h3>
+                    <p class="text-lg mb-4">दूसरों को जोड़कर किसानी क्रांति के पोल्ट्री व्यवसाय से अतिरिक्त आय अर्जित करें!</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><span class="font-semibold">एफिलिएट बोनस (एकमुश्त):</span>
+                            <ul class="list-circle list-inside ml-4">
+                                <li>लेवल 1: 5%।</li>
+                                <li>लेवल 2: 1%।</li>
+                                <li>लेवल 3: 1%।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="text-gray-600 mt-6"><span class="font-semibold">कैसे काम करता है?:</span> दूसरों को किसानी क्रांति से जोड़ें और तीन स्तरों तक बोनस पाएं।</p>
+                    <p class="text-gray-600"><span class="font-semibold">लाभ:</span> आसान, लाभकारी, और भरोसेमंद पोल्ट्री व्यवसाय का हिस्सा बनें।</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-12 border-t-4 border-yellow-600 card">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-4">🌐 फार्म बोनस प्लान 🚀</h3>
+                    <p class="text-lg mb-4">रेफरल नेटवर्क बनाकर मुर्गी पालन से बंपर कमाई करें!</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><span class="font-semibold">शुरुआत:</span> ₹1,00,000 डायरेक्ट रेफरल्स पर बोनस अनलॉक।</li>
+                        <li><span class="font-semibold">बोनस संरचना:</span>
+                            <ul class="list-circle list-inside ml-4">
+                                <li>1st लेवल: 10% (₹10,000 डायरेक्ट बिजनेस)।</li>
+                                <li>2nd लेवल: 7% (₹20,000)।</li>
+                                <li>3rd लेवल: 5% (₹30,000)।</li>
+                                <li>4th लेवल: 3% (₹40,000)।</li>
+                                <li>5th–10th लेवल: 2% (₹60,000)।</li>
+                                <li>11th–20th लेवल: 1% (₹80,000)।</li>
+                                <li>21st–30th लेवल: 0.5% (₹1,00,000)।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="text-gray-600 mt-6"><span class="font-semibold">लाभ:</span> नेटवर्क बढ़ाएं, आय बढ़ाएं!</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-12 border-t-4 border-yellow-600 card">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-4">💼 सैलरी और रिवॉर्ड प्लान 🏆</h3>
+                    <p class="text-lg mb-4">मुर्गी पालन व्यवसाय में करियर बनाएं, मासिक वेतन और बोनस पाएं!</p>
+                    <p class="text-gray-600 mb-4"><span class="font-semibold">कैसे काम करता है?:</span> बिजनेस नेटवर्क बढ़ाएं, ऊंचे पद और वेतन अनलॉक करें।</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg shadow-md">
+                            <thead>
+                                <tr class="bg-yellow-100 text-yellow-800">
+                                    <th class="py-3 px-4 text-left">पद</th>
+                                    <th class="py-3 px-4 text-left">बिजनेस</th>
+                                    <th class="py-3 px-4 text-left">मासिक वेतन</th>
+                                    <th class="py-3 px-4 text-left">एकमुश्त रिवॉर्ड</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200">
+                                    <td class="py-3 px-4">एसोसिएट</td>
+                                    <td class="py-3 px-4">₹2,50,000</td>
+                                    <td class="py-3 px-4">₹2,500</td>
+                                    <td class="py-3 px-4">₹5,000</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 bg-gray-50">
+                                    <td class="py-3 px-4">सीनियर एसोसिएट</td>
+                                    <td class="py-3 px-4">₹5,00,000</td>
+                                    <td class="py-3 px-4">₹5,000</td>
+                                    <td class="py-3 px-4">₹10,000</td>
+                                </tr>
+                                <tr class="border-b border-gray-200">
+                                    <td class="py-3 px-4">सुपरवाइजर</td>
+                                    <td class="py-3 px-4">₹10,00,000</td>
+                                    <td class="py-3 px-4">₹10,000</td>
+                                    <td class="py-3 px-4">₹20,000</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 bg-gray-50">
+                                    <td class="py-3 px-4">मैनेजर</td>
+                                    <td class="py-3 px-4">₹50,00,000</td>
+                                    <td class="py-3 px-4">₹50,000</td>
+                                    <td class="py-3 px-4">₹1,50,000</td>
+                                </tr>
+                                <tr class="border-b border-gray-200">
+                                    <td class="py-3 px-4">प्रेसिडेंट तक</td>
+                                    <td class="py-3 px-4">₹100,00,00,000</td>
+                                    <td class="py-3 px-4">₹1,00,00,000</td>
+                                    <td class="py-3 px-4">₹2,00,00,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">नोट: नया पद मिलने पर पुराना वेतन बंद। मासिक वेतन ऑटो-ट्रांसफर।</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-yellow-600 card">
+                    <h3 class="text-3xl font-bold text-yellow-700 mb-4">👑 क्लब फार्म रॉयल्टी प्लान 💰</h3>
+                    <p class="text-lg mb-4">मुर्गी पालन के मुनाफे में हिस्सेदारी पाएं, नेतृत्व की नई ऊंचाइयां छूएं!</p>
+                    <p class="text-gray-600 mb-4"><span class="font-semibold">कैसे काम करता है?:</span> कुल फार्म आय का 50% विभिन्न पदों में वितरित।</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>मैनेजर: 25%।</li>
+                        <li>सीनियर मैनेजर: 15%।</li>
+                        <li>प्रोजेक्ट हेड, सीनियर प्रोजेक्ट हेड, डायरेक्टर, सीनियर डायरेक्टर, वाइस प्रेसिडेंट, प्रेसिडेंट: प्रत्येक 10%।</li>
+                    </ul>
+                    <p class="text-gray-600 mt-6"><span class="font-semibold">लाभ:</span> नेतृत्व और प्रतिबद्धता के लिए बंपर रॉयल्टी।</p>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" style="background-color: #F59E0B;" onclick="showPage('home-page'); scrollToSection('all-products-section');">
+                        जैविक कृषि उत्पाद पेज पर जाएँ <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="text-center mt-12 p-6 bg-yellow-100 rounded-xl shadow-inner">
+                    <h3 class="text-2xl font-bold text-yellow-800 mb-4">अधिक जानकारी के लिए संपर्क करें</h3>
+                    <p class="text-lg text-gray-700 mb-4">📞 95883 23460 | 📧 KISANIKRANTI@gmail.com</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://instagram.com/kisanikranti" target="_blank" class="text-yellow-700 hover:text-yellow-900 transition duration-300 text-3xl social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com/Kisanikranti" target="_blank" class="text-yellow-700 hover:text-yellow-900 transition duration-300 text-3xl social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/9588323460" target="_blank" class="text-yellow-700 hover:text-yellow-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Customer Care">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VahuPvW1CYoJyiYxPe3I" target="_blank" class="text-yellow-700 hover:text-yellow-900 transition duration-300 text-3xl social-link" aria-label="WhatsApp Channel">
+                            <i class="fab fa-whatsapp-square"></i>
+                        </a>
+                        <a href="https://in.pinterest.com/kisanikranti" target="_blank" class="text-yellow-700 hover:text-yellow-900 transition duration-300 text-3xl social-link" aria-label="Pinterest">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="login-signup-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12 text-center">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto text-blue-700">लॉगिन / साइनअप</h2>
+                    <div></div> </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8 max-w-md mx-auto">
+                    <p class="text-lg text-gray-700 mb-6">यह लॉगिन और साइनअप पेज का एक संकल्पनात्मक दृश्य है। वास्तविक कार्यक्षमता के लिए बैकएंड प्रमाणीकरण की आवश्यकता होगी।</p>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="ईमेल या मोबाइल नंबर" class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="password" placeholder="पासवर्ड" class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-full hover:bg-blue-700 transition duration-300">लॉगिन करें</button>
+                    </form>
+                    <p class="mt-4 text-gray-600">या</p>
+                    <button class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-full hover:bg-green-700 transition duration-300 mt-4" onclick="alertMessage('पंजीकरण कार्यक्षमता के लिए बैकएंड एकीकरण की आवश्यकता है।')">नया खाता बनाएँ</button>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <button class="bg-red-600 text-white p-3 rounded-full"><i class="fab fa-google"></i></button>
+                        <button class="bg-blue-800 text-white p-3 rounded-full"><i class="fab fa-facebook-f"></i></button>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page')">
+                        होम पेज पर वापस जाएँ <i class="fas fa-home ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto text-blue-700">मेरी प्रोफाइल</h2>
+                    <div></div> </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">प्रोफाइल प्रबंधन</h3>
+                    <p class="text-gray-700 mb-4">नाम: जॉन डो</p>
+                    <p class="text-gray-700 mb-4">ईमेल: user@example.com</p>
+                    <p class="text-gray-700 mb-4">मोबाइल: 9876543210</p>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">प्रोफाइल संपादित करें</button>
+
+                    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">पता पुस्तिका</h3>
+                    <p class="text-gray-700 mb-4">पता 1: 123, मुख्य मार्ग, शहर, राज्य, पिनकोड</p>
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">नया पता जोड़ें</button>
+
+                    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">ऑर्डर इतिहास</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>ऑर्डर #12345 - दिनांक: 2024-05-15 - कुल: ₹750 - स्थिति: वितरित</li>
+                        <li>ऑर्डर #12346 - दिनांक: 2024-05-20 - कुल: ₹1200 - स्थिति: शिप किया गया</li>
+                    </ul>
+                    <button class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 mt-4">सभी ऑर्डर देखें</button>
+
+                    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">विशलिस्ट</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>नैनो-उर्वरक</li>
+                        <li>जैव-कीटनाशक</li>
+                    </ul>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mt-4">विशलिस्ट संपादित करें</button>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page')">
+                        होम पेज पर वापस जाएँ <i class="fas fa-home ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="privacy-policy-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto">गोपनीयता नीति</h2>
+                    <div></div> </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8 text-gray-700 leading-relaxed">
+                    <p class="mb-4">किसानी क्रांति बायो ऑर्गेनिक आपकी गोपनीयता का सम्मान करता है। यह नीति बताती है कि हम आपकी व्यक्तिगत जानकारी कैसे एकत्र करते हैं, उपयोग करते हैं और उसकी सुरक्षा करते हैं।</p>
+                    <h3 class="text-2xl font-bold mb-3">जानकारी एकत्र करना</h3>
+                    <p class="mb-4">हम आपकी व्यक्तिगत जानकारी एकत्र करते हैं जब आप हमारी वेबसाइट पर पंजीकरण करते हैं, ऑर्डर देते हैं, या हमसे संपर्क करते हैं। इसमें आपका नाम, ईमेल पता, मोबाइल नंबर और शिपिंग पता शामिल हो सकता है।</p>
+                    <h3 class="text-2xl font-bold mb-3">जानकारी का उपयोग</h3>
+                    <p class="mb-4">हम आपकी जानकारी का उपयोग ऑर्डर संसाधित करने, आपको उत्पाद अपडेट भेजने, आपके प्रश्नों का उत्तर देने और हमारी सेवाओं में सुधार करने के लिए करते हैं।</p>
+                    <h3 class="text-2xl font-bold mb-3">डेटा सुरक्षा</h3>
+                    <p class="mb-4">हम आपकी व्यक्तिगत जानकारी को अनधिकृत पहुंच, उपयोग या प्रकटीकरण से बचाने के लिए विभिन्न सुरक्षा उपायों का उपयोग करते हैं।</p>
+                    <p class="mb-4">अधिक जानकारी के लिए, कृपया हमसे संपर्क करें।</p>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page')">
+                        होम पेज पर वापस जाएँ <i class="fas fa-home ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="return-policy-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto">वापसी नीति</h2>
+                    <div></div> </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8 text-gray-700 leading-relaxed">
+                    <p class="mb-4">किसानी क्रांति बायो ऑर्गेनिक में, हम आपकी संतुष्टि सुनिश्चित करने के लिए प्रतिबद्ध हैं। यदि आप अपने ऑर्डर से पूरी तरह संतुष्ट नहीं हैं, तो हमारी वापसी नीति देखें।</p>
+                    <h3 class="text-2xl font-bold mb-3">वापसी की शर्तें</h3>
+                    <ul class="list-disc list-inside mb-4 space-y-2">
+                        <li>उत्पाद डिलीवरी के 7 दिनों के भीतर वापसी के लिए योग्य हैं।</li>
+                        <li>उत्पाद अपनी मूल पैकेजिंग में, अप्रयुक्त और क्षतिग्रस्त नहीं होना चाहिए।</li>
+                        <li>खाद्य उत्पादों या व्यक्तिगत देखभाल उत्पादों को उनकी प्रकृति के कारण वापस नहीं किया जा सकता है।</li>
+                    </ul>
+                    <h3 class="text-2xl font-bold mb-3">वापसी प्रक्रिया</h3>
+                    <p class="mb-4">वापसी का अनुरोध करने के लिए, कृपया हमारे ग्राहक सेवा से संपर्क करें और अपना ऑर्डर नंबर प्रदान करें। हम आपको वापसी शिपिंग निर्देशों के साथ मार्गदर्शन करेंगे।</p>
+                    <h3 class="text-2xl font-bold mb-3">रिफंड</h3>
+                    <p class="mb-4">एक बार जब हम वापसी किए गए उत्पाद को प्राप्त कर लेते हैं और उसका निरीक्षण कर लेते हैं, तो हम 7-10 व्यावसायिक दिनों के भीतर आपके मूल भुगतान विधि में रिफंड संसाधित करेंगे।</p>
+                    <p class="mb-4">किसी भी प्रश्न के लिए, कृपया हमसे संपर्क करें।</p>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page')">
+                        होम पेज पर वापस जाएँ <i class="fas fa-home ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="terms-conditions-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto">नियम और शर्तें</h2>
+                    <div></div> </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8 text-gray-700 leading-relaxed">
+                    <p class="mb-4">किसानी क्रांति बायो ऑर्गेनिक वेबसाइट का उपयोग करके, आप इन नियमों और शर्तों से बंधे होने के लिए सहमत हैं।</p>
+                    <h3 class="text-2xl font-bold mb-3">सेवाओं का उपयोग</h3>
+                    <p class="mb-4">आप केवल वैध उद्देश्यों के लिए हमारी वेबसाइट और सेवाओं का उपयोग करने के लिए सहमत हैं। आप किसी भी ऐसे कार्य में शामिल नहीं होंगे जो हमारी वेबसाइट को बाधित या नुकसान पहुंचा सकता है।</p>
+                    <h3 class="text-2xl font-bold mb-3">बौद्धिक संपदा</h3>
+                    <p class="mb-4">वेबसाइट पर सभी सामग्री, जिसमें टेक्स्ट, ग्राफिक्स, लोगो और छवियां शामिल हैं, किसानी क्रांति बायो ऑर्गेनिक की संपत्ति हैं और कॉपीराइट कानूनों द्वारा संरक्षित हैं।</p>
+                    <h3 class="text-2xl font-bold mb-3">दायित्व की सीमा</h3>
+                    <p class="mb-4">किसानी क्रांति बायो ऑर्गेनिक हमारी वेबसाइट के उपयोग से होने वाले किसी भी प्रत्यक्ष, अप्रत्यक्ष, आकस्मिक या परिणामी नुकसान के लिए उत्तरदायी नहीं होगा।</p>
+                    <h3 class="text-2xl font-bold mb-3">इन नियमों में परिवर्तन</h3>
+                    <p class="mb-4">हमें किसी भी समय इन नियमों और शर्तों को संशोधित करने का अधिकार है। परिवर्तन हमारी वेबसाइट पर पोस्ट किए जाने पर तुरंत प्रभावी होंगे।</p>
+                    <p class="mb-4">अधिक जानकारी के लिए, कृपया हमसे संपर्क करें।</p>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page')">
+                        होम पेज पर वापस जाएँ <i class="fas fa-home ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-page" class="page-section">
+            <div class="bg-green-700 text-white py-16 px-6 md:px-12">
+                <div class="container mx-auto text-center">
+                    <div class="flex items-center justify-between mb-8">
+                        <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                        <h2 class="text-4xl font-bold text-center mx-auto">संपर्क करें</h2>
+                        <div></div> </div>
+                    <p class="text-lg mb-8 max-w-2xl mx-auto">अधिक जानकारी के लिए या हमारे साथ जुड़ने के लिए, कृपया हमसे संपर्क करें:</p>
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-12">
+                        <div class="flex items-center text-xl">
+                            <i class="fas fa-phone-alt text-green-300 mr-3"></i>
+                            <a href="tel:9588323460" class="hover:underline">95883 23460</a>
+                        </div>
+                        <div class="flex items-center text-xl">
+                            <i class="fas fa-envelope text-green-300 mr-3"></i>
+                            <a href="mailto:KISANIKRANTI@gmail.com" class="hover:underline">KISANIKRANTI@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <h3 class="text-3xl font-bold mb-6">सोशल मीडिया पर जुड़ें</h3>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://instagram.com/kisanikranti" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com/Kisanikranti" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/9588323460" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="WhatsApp Customer Care">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VahuPvW1CYoJyiYxPe3I" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="WhatsApp Channel">
+                            <i class="fab fa-whatsapp-square"></i>
+                        </a>
+                        <a href="https://in.pinterest.com/kisanikranti" target="_blank" class="text-white hover:text-green-300 transition duration-300 text-4xl social-link" aria-label="Pinterest">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                    <p class="text-lg mt-8">आइए, मिलकर प्रकृति के साथ बढ़ें! 🌍🌱</p>
+                </div>
+            </div>
+             <div class="text-center mt-12 mb-12">
+                <a href="#" class="next-page-link" onclick="showPage('home-page')">
+                    होम पेज पर जाएँ <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="admin-panel-page" class="page-section">
+            <div class="container mx-auto py-16 px-6 md:px-12 text-center">
+                <div class="flex items-center justify-between mb-8">
+                    <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left mr-2"></i> वापस जाएँ</button>
+                    <h2 class="text-4xl font-bold text-center section-heading mx-auto text-blue-700">एडमिन पैनल (संकल्पनात्मक)</h2>
+                    <div></div> </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <p class="text-lg text-gray-700 mb-4">यह एडमिन पैनल का एक संकल्पनात्मक दृश्य है। एक पूर्ण कार्यशील एडमिन पैनल के लिए एक मजबूत बैकएंड सिस्टम (जैसे Node.js, Python/Django, PHP/Laravel के साथ डेटाबेस) की आवश्यकता होगी।</p>
+                    <p class="text-lg text-gray-700 mb-4">यहां, एक एडमिन कर सकता है:</p>
+                    <ul class="list-disc list-inside text-left mx-auto max-w-md text-gray-600 mb-6">
+                        <li>उत्पादों को जोड़ें, संपादित करें या हटाएँ।</li>
+                        <li>ऑर्डर देखें और प्रबंधित करें।</li>
+                        <li>इन्वेंट्री स्टॉक को नियंत्रित करें।</li>
+                        <li>उपयोगकर्ता पंजीकरण और प्रोफाइल प्रबंधित करें।</li>
+                        <li>कूपन/ऑफर बनाएं और प्रबंधित करें।</li>
+                        <li>रिपोर्ट और एनालिटिक्स देखें।</li>
+                        <li>वेबसाइट सामग्री और सेटिंग्स अपडेट करें।</li>
+                    </ul>
+                    <p class="text-md text-gray-500">यह सुविधा केवल प्रदर्शन उद्देश्यों के लिए है और इसमें वास्तविक बैकएंड कार्यक्षमता शामिल नहीं है।</p>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="next-page-link" onclick="showPage('home-page')">
+                        होम पेज पर वापस जाएँ <i class="fas fa-home ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div> <footer class="bg-gray-800 text-white py-8 px-6 md:px-12 text-center">
+        <div class="container mx-auto">
+            <p>&copy; 2025 किसानी क्रांति बायो ऑर्गेनिक। सर्वाधिकार सुरक्षित।</p>
+            <div class="flex justify-center space-x-4 mt-4 text-sm">
+                <a href="#" onclick="showPage('privacy-policy-page')" class="hover:underline">गोपनीयता नीति</a>
+                <a href="#" onclick="showPage('return-policy-page')" class="hover:underline">वापसी नीति</a>
+                <a href="#" onclick="showPage('terms-conditions-page')" class="hover:underline">नियम और शर्तें</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // सभी उत्पाद डेटा को संग्रहीत करने के लिए ऑब्जेक्ट
+        const productData = {
+            "nitrogen_fixers": {
+                name: "नाइट्रोजन स्थिरीकरण करने वाले जैव-उर्वरक",
+                category: "bio_fertilizers",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Nitrogen+Fixers",
+                price: 250,
+                type: "वायुमंडलीय नाइट्रोजन को स्थिर करने वाले सूक्ष्मजीव",
+                components: "राइजोबियम, एजेटोबैक्टर, एजोस्पिरिलम, नीले-हरे शैवाल (BGA), एसीटोबैक्टर",
+                method: "बीज उपचार, मिट्टी में प्रयोग (छिड़काव, ड्रिप सिंचाई), अंकुर जड़ डुबाना",
+                usage: "वायुमंडलीय नाइट्रोजन को पौधे के लिए उपलब्ध रूपों में परिवर्तित करते हैं, जिससे सिंथेटिक नाइट्रोजन उर्वरकों की आवश्यकता कम हो जाती है।",
+                variants: ["500ml", "1 Liter", "5 Liter"],
+                reviews: [{ rating: 5, comment: "बहुत प्रभावी उत्पाद!" }, { rating: 4, comment: "फसल में सुधार हुआ।" }]
+            },
+            "phosphorus_solubilizers": {
+                name: "फास्फोरस घुलनशील जैव-उर्वरक (PSB)",
+                category: "bio_fertilizers",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Phosphorus+Solubilizers",
+                price: 280,
+                type: "अघुलनशील फास्फोरस को घुलनशील बनाने वाले सूक्ष्मजीव",
+                components: "बैसिलस मेगाटेरियम, बैसिलस पॉलीमीक्सा, स्यूडोमोनास स्ट्रिएटा",
+                method: "बीज उपचार, मिट्टी में प्रयोग, कम्पोस्ट संवर्धन",
+                usage: "मिट्टी में अघुलनशील अकार्बनिक फास्फोरस (रॉक फास्फेट, ट्राईकैल्शियम फास्फेट) को घुलनशील बनाते हैं, जिससे यह पौधे द्वारा अवशोषण के लिए उपलब्ध हो जाता है।",
+                variants: ["500ml", "1 Liter", "5 Liter"],
+                reviews: [{ rating: 4, comment: "अच्छा काम करता है।" }]
+            },
+            "potassium_mobilizers": {
+                name: "पोटेशियम गतिशील जैव-उर्वरक (KMB)",
+                category: "bio_fertilizers",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Potassium+Mobilizers",
+                price: 220,
+                type: "स्थिर पोटेशियम को गतिशील बनाने वाले सूक्ष्मजीव",
+                components: "बैसिलस म्यूसिलैगिनोसस, फ्रेटेरिया ऑरेंशिया",
+                method: "मिट्टी में प्रयोग",
+                usage: "मिट्टी में जटिल पोटेशियम यौगिकों को घुलनशील बनाते हैं, जिससे पोटेशियम पौधों को उपलब्ध होता है।",
+                variants: ["500ml", "1 Liter"],
+                reviews: []
+            },
+            "micronutrient_solubilizers": {
+                name: "सूक्ष्म पोषक तत्व घुलनशील जैव-उर्वरक",
+                category: "micro_nutrients",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Micronutrient+Solubilizers",
+                price: 350,
+                type: "विशिष्ट सूक्ष्म पोषक तत्वों को घुलनशील बनाने वाले सूक्ष्मजीव",
+                components: "जिंक, लोहा, मैंगनीज आदि के लिए विशिष्ट बैक्टीरियल/फंगल स्ट्रेन",
+                method: "मिट्टी में प्रयोग",
+                usage: "विशिष्ट सूक्ष्म पोषक तत्वों की कमी को पूरा करते हैं, उन्हें जैव-उपलब्ध बनाते हैं।",
+                variants: ["250ml", "500ml"],
+                reviews: []
+            },
+            "compost_enrichers": {
+                name: "कम्पोस्ट संवर्धक जैव-उर्वरक",
+                category: "decomposers",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Compost+Enrichers",
+                price: 180,
+                type: "लाभकारी रोगाणुओं (बैक्टीरिया, कवक) का संघ",
+                components: "अपघटक रोगाणुओं का मिश्रण",
+                method: "कम्पोस्टिंग के दौरान जैविक कचरे में मिलाया जाता है",
+                usage: "अपघटन को तेज करता है और कम्पोस्टिंग प्रक्रिया के दौरान पोषक तत्वों की मात्रा को बढ़ाता है।",
+                variants: ["1kg", "5kg"],
+                reviews: [{ rating: 5, comment: "कम्पोस्ट तेजी से बनता है!" }]
+            },
+            "microbial_pesticides": {
+                name: "माइक्रोबियल जैव-कीटनाशक",
+                category: "bio_pesticides",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Microbial+Pesticides",
+                price: 400,
+                type: "कीटों को नियंत्रित करने वाले सूक्ष्मजीव",
+                components: "बैसिलस थुरिंजिनेंसिस (Bt), ब्यूवेरिया बासियाना, मेटाराइजियम एनिसोप्लिए, वर्टिसिलियम लेकानी",
+                method: "पर्ण स्प्रे, मिट्टी में डुबाना, बीज उपचार, चारा में मिलाना",
+                usage: "विशिष्ट कीटों (जैसे कैटरपिलर, सफेद मक्खियां, एफिड्स, थ्रिप्स, बोरर्स) को संक्रमण या विषाक्त उत्पादन द्वारा नियंत्रित करते हैं।",
+                variants: ["500ml", "1 Liter"],
+                reviews: [{ rating: 4, comment: "कीट नियंत्रण में मदद मिली।" }]
+            },
+            "bio_fungicides": {
+                name: "जैव-कवकनाशी",
+                category: "bio_pesticides",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Bio+Fungicides",
+                price: 380,
+                type: "फंगल रोगों को नियंत्रित करने वाले सूक्ष्मजीव",
+                components: "ट्राइकोडर्मा विरिडे, ट्राइकोडर्मा हरज़ियानम, स्यूडोमोनास फ्लोरेसेंस, बैसिलस सबटिलिस",
+                method: "बीज उपचार, मिट्टी में प्रयोग, नर्सरी बेड उपचार, पर्ण स्प्रे",
+                usage: "मिट्टी जनित रोगों (जैसे डैम्पिंग-ऑफ, जड़ सड़न, विल्ट), बैक्टीरियल ब्लाइट्स, पत्ती के धब्बे और पाउडरी मिल्ड्यू को नियंत्रित करते हैं।",
+                variants: ["500ml", "1 Liter"],
+                reviews: [{ rating: 5, comment: "उत्कृष्ट परिणाम, कोई फंगल रोग नहीं।" }]
+            },
+            "bio_nematicides": {
+                name: "जैव-नेमाटीसाइड",
+                category: "bio_pesticides",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Bio+Nematicides",
+                price: 450,
+                type: "पौधों को नुकसान पहुंचाने वाले नेमाटोड को नियंत्रित करने वाले सूक्ष्मजीव",
+                components: "पेसिलोमाइसेस लिलाकिनस, पेस्टेरिया निशिज़ावे",
+                method: "मिट्टी में डुबाना, बीज उपचार",
+                usage: "पौधों की जड़ों को नेमाटोड के नुकसान से बचाते हैं।",
+                variants: ["250ml", "500ml"],
+                reviews: []
+            },
+            "botanical_extracts": {
+                name: "वनस्पति अर्क (Botanical Extracts)",
+                category: "bio_pesticides",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Botanical+Extracts",
+                price: 320,
+                type: "पौधों से प्राप्त कीटनाशक",
+                components: "नीम का तेल (एज़ाडिरेक्टिन), पाइरेथ्रम अर्क, करंज तेल",
+                method: "पर्ण स्प्रे",
+                usage: "कीटों को दूर भगाने वाले, खाने से रोकने वाले, विकास को बाधित करने वाले, अंडानाशक के रूप में कार्य करते हैं, और कुछ में कवकनाशी गुण भी होते हैं।",
+                variants: ["1 Liter", "5 Liter"],
+                reviews: [{ rating: 4, comment: "प्राकृतिक और प्रभावी।" }]
+            },
+            "pheromones": {
+                name: "फेरोमोन",
+                category: "bio_pesticides",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Pheromones",
+                price: 500,
+                type: "कीटों के व्यवहार को प्रभावित करने वाले प्राकृतिक रूप से पाए जाने वाले रसायन",
+                components: "कीट सेक्स फेरोमोन (जैसे कोडलिंग मोथ, कपास बॉलवर्म के लिए)",
+                method: "डिस्पेंसर या जाल में खेत में स्थापित किया जाता है",
+                usage: "विशिष्ट कीटों के प्रजनन को रोकने के लिए संभोग में बाधा डालते हैं; कीट निगरानी के लिए भी उपयोग किया जाता है।",
+                variants: ["10 यूनिट", "20 यूनिट"],
+                reviews: []
+            },
+            "humic_fulvic_acid": {
+                name: "ह्यूमिक और फुल्विक एसिड",
+                category: "bio_stimulants",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Humic+Fulvic+Acid",
+                price: 290,
+                type: "विघटित कार्बनिक पदार्थ से प्राप्त प्राकृतिक कार्बनिक यौगिक",
+                components: "ह्यूमिक एसिड घोल, फुल्विक एसिड पाउडर/तरल (लियोनार्डाइट, पीट, कम्पोस्ट से प्राप्त)",
+                method: "मिट्टी में प्रयोग, पर्ण स्प्रे, बीज उपचार",
+                usage: "मिट्टी की संरचना में सुधार करते हैं, पोषक तत्वों की उपलब्धता और अवशोषण को बढ़ाते हैं, जड़ विकास को उत्तेजित करते हैं, जल प्रतिधारण बढ़ाते हैं, और माइक्रोबियल गतिविधि को बढ़ावा देते हैं।",
+                variants: ["1 Liter", "5 Liter"],
+                reviews: [{ rating: 5, comment: "पौधों की वृद्धि में जबरदस्त सुधार।" }]
+            },
+            "seaweed_extract": {
+                name: "समुद्री शैवाल अर्क",
+                category: "bio_stimulants",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Seaweed+Extract",
+                price: 310,
+                type: "समुद्री शैवाल से प्राप्त अर्क",
+                components: "तरल समुद्री शैवाल अर्क (जैसे एस्कोफिलम नोडोसम से)",
+                method: "पर्ण स्प्रे, बीज उपचार, मिट्टी में डुबाना",
+                usage: "सूक्ष्म पोषक तत्व, पौधों के हार्मोन (साइटोकिनिन, ऑक्सिन, जिबरेलिन), एमीनो एसिड और अन्य लाभकारी यौगिकों से भरपूर। ये अंकुरण, जड़ वृद्धि, तनाव सहिष्णुता, फूल, फलने और समग्र पौधे की जीवन शक्ति को बढ़ाते हैं।",
+                variants: ["500ml", "1 Liter"],
+                reviews: []
+            },
+            "amino_acid_hydrolyzate": {
+                name: "एमीनो एसिड और प्रोटीन हाइड्रोलाइज़ेट",
+                category: "bio_stimulants",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Amino+Acid",
+                price: 330,
+                type: "नाइट्रोजन युक्त कार्बनिक यौगिक",
+                components: "एमीनो एसिड मिश्रण, प्रोटीन हाइड्रोलाइज़ेट घोल (पौधे या पशु स्रोतों से प्राप्त)",
+                method: "पर्ण स्प्रे या मिट्टी में प्रयोग",
+                usage: "प्रोटीन के लिए आसानी से उपलब्ध बिल्डिंग ब्लॉक प्रदान करते हैं, पोषक तत्वों के अवशोषण, प्रकाश संश्लेषण और तनाव से उबरने में सुधार करते हैं।",
+                variants: ["1 Liter", "5 Liter"],
+                reviews: []
+            },
+            "beneficial_microbes": {
+                name: "लाभकारी सूक्ष्मजीव",
+                category: "probiotics",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Beneficial+Microbes",
+                price: 270,
+                type: "विकास और तनाव सहिष्णुता को बढ़ावा देने वाले सूक्ष्मजीव",
+                components: "प्लांट ग्रोथ-प्रमोटिंग राइजोबैक्टीरिया (PGPR) (जैसे बैसिलस और स्यूडोमोनास के कुछ स्ट्रेन), अस्कुलर मायकोराइज़ल फंगी (AMF)",
+                method: "बीज उपचार, जड़ डुबाना, मिट्टी टीकाकरण",
+                usage: "जड़ विकास, पोषक तत्व अधिग्रहण, समग्र पौधे की वृद्धि को बढ़ाते हैं, और पानी और पोषक तत्वों के अवशोषण में सुधार करते हैं।",
+                variants: ["500ml", "1 Liter"],
+                reviews: []
+            },
+            "chitin_chitosan": {
+                name: "चिटिन और चिटोसन डेरिवेटिव",
+                category: "bio_stimulants",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Chitin+Chitosan",
+                price: 360,
+                type: "क्रस्टेशियन के खोल या फंगल कोशिका भित्ति से प्राप्त पॉलीसेकेराइड",
+                components: "चिटोसन घोल",
+                method: "बीज उपचार, पर्ण स्प्रे",
+                usage: "पौधे की रक्षा प्रतिक्रियाओं को उत्तेजित करते हैं, तनाव सहिष्णुता में सुधार करते हैं, और वृद्धि को बढ़ाते हैं।",
+                variants: ["250ml", "500ml"],
+                reviews: []
+            },
+            "inorganic_compounds": {
+                name: "अकार्बनिक यौगिक (जैसे सिलिकॉन)",
+                category: "bio_stimulants",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Inorganic+Compound",
+                price: 200,
+                type: "खनिज-आधारित यौगिक",
+                components: "सिलिकॉन-आधारित बायोस्टिमुलेंट्स",
+                method: "मिट्टी या पर्ण प्रयोग",
+                usage: "कोशिका भित्ति को मजबूत करते हैं, पौधे के जैविक (कीट, रोग) और अजैविक तनाव (सूखा, गिरना) के प्रति प्रतिरोध को बढ़ाते हैं।",
+                variants: ["1kg", "5kg"],
+                reviews: []
+            },
+            "microbial_decomposers": {
+                name: "माइक्रोबियल अपघटक कंसोर्टिया",
+                category: "decomposers",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Decomposers",
+                price: 150,
+                type: "सेल्युलोज-अपघटन करने वाले और लिग्निन-अपघटन करने वाले सूक्ष्मजीवों का मिश्रण",
+                components: "बैसिलस प्रजातियां, ट्राइकोडर्मा प्रजातियां, एस्परगिलस प्रजातियां, सेल्युलेस-उत्पादक बैक्टीरिया और कवक",
+                method: "खेत में फसल अवशेषों पर सीधा प्रयोग, कम्पोस्ट ढेर का टीकाकरण",
+                usage: "फसल अवशेषों, खेत के कचरे और अन्य जैविक पदार्थों का तेजी से अपघटन; कम्पोस्टिंग प्रक्रिया को तेज करना, मिट्टी की उर्वरता में सुधार करना।",
+                variants: ["1kg", "5kg"],
+                reviews: []
+            },
+            "bioavailable_micronutrients": {
+                name: "जैव-उपलब्ध सूक्ष्म पोषक तत्व फॉर्मूलेशन",
+                category: "micro_nutrients",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Bioavailable+Micronutrients",
+                price: 300,
+                type: "कार्बनिक अणुओं से जटिल सूक्ष्म पोषक तत्व या सूक्ष्मजीवों द्वारा घुलनशील बनाए गए",
+                components: "एमीनो एसिड चिलेटेड सूक्ष्म पोषक तत्व, समुद्री शैवाल अर्क (विभिन्न सूक्ष्म पोषक तत्वों का प्राकृतिक स्रोत), सूक्ष्मजीव-आधारित सूक्ष्म पोषक तत्व घुलनशील (जैसे जिंक घुलनशील बैक्टीरिया)",
+                method: "पर्ण स्प्रे (तेजी से अवशोषण के लिए), मिट्टी में प्रयोग, बीज उपचार",
+                usage: "पौधों को आवश्यक सूक्ष्म पोषक तत्व (जिंक, लोहा, तांबा, मैंगनीज, बोरॉन, मोलिब्डेनम) प्रदान करते हैं, कमियों को रोकते और ठीक करते हैं।",
+                variants: ["250ml", "500ml"],
+                reviews: []
+            },
+            "nano_fertilizers": {
+                name: "नैनो-उर्वरक",
+                category: "nano_tech",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Nano+Fertilizers",
+                price: 550,
+                type: "नैनो-स्केल पर तैयार किए गए उर्वरक",
+                components: "नैनो-यूरिया, नैनो-जिंक, नैनो-कॉपर",
+                method: "मुख्य रूप से पर्ण स्प्रे, कुछ मिट्टी में प्रयोग",
+                usage: "कम खुराक पर भी पोषक तत्वों का अत्यधिक कुशल अवशोषण सक्षम करते हैं, पोषक तत्वों की बर्बादी और लीचिंग को कम करते हैं, नियंत्रित रिलीज में सुधार करते हैं।",
+                variants: ["100ml", "250ml"],
+                reviews: [{ rating: 4, comment: "अद्भुत उत्पाद, फसल की उपज में वृद्धि हुई।" }]
+            },
+            "nano_pesticides_fungicides": {
+                name: "नैनो-कीटनाशक / नैनो-कवकनाशी",
+                category: "nano_tech",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Nano+Pesticides",
+                price: 580,
+                type: "नैनो-पार्टिकल्स के साथ तैयार किए गए कीटनाशक और कवकनाशी",
+                components: "नैनो-फॉर्मूलेटेड वानस्पतिक कीटनाशक (जैसे नीम नैनो-पार्टिकल्स), धातु ऑक्साइड नैनो-पार्टिकल्स (जैसे कवकनाशकों के लिए तांबा नैनो-पार्टिकल्स)",
+                method: "पर्ण स्प्रे, बीज उपचार, मिट्टी में डुबाना",
+                usage: "बेहतर कवरेज और प्रवेश के कारण लक्षित वितरण, बढ़ी हुई प्रभावकारिता, और संभावित रूप से कम पर्यावरणीय प्रभाव प्रदान करते हैं।",
+                variants: ["100ml", "250ml"],
+                reviews: []
+            },
+            "nano_biostimulants": {
+                name: "नैनो जैव-उत्तेजक",
+                category: "nano_tech",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Nano+Biostimulants",
+                price: 520,
+                type: "नैनो-स्केल पर इंजीनियर किए गए जैव-उत्तेजक यौगिक",
+                components: "प्लांट ग्रोथ प्रमोटर या सिग्नलिंग अणुओं को ले जाने वाले नैनो-पार्टिकल्स",
+                method: "पर्ण स्प्रे, बीज उपचार",
+                usage: "पौधों की वृद्धि को बढ़ाते हैं, तनाव सहिष्णुता में सुधार करते हैं, और उच्च दक्षता के साथ फसल की उपज बढ़ाते हैं।",
+                variants: ["100ml", "250ml"],
+                reviews: []
+            },
+            "neem_cake": {
+                name: "नीम केक",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Neem+Cake",
+                price: 120,
+                type: "नीम तेल निकालने का जैविक उप-उत्पाद",
+                components: "कोल्ड प्रेस्ड नीम केक, एक्सपेलर प्रेस्ड नीम केक",
+                method: "मिट्टी संशोधन (बुवाई से पहले मिट्टी में मिलाया जाता है या टॉपड्रेसिंग के रूप में)",
+                usage: "धीरे-धीरे नाइट्रोजन छोड़ता है, प्राकृतिक नेमाटीसाइड और कीटनाशक के रूप में कार्य करता है (दीमक, सफेद ग्रब जैसे मिट्टी जनित कीटों को नियंत्रित करता है), मिट्टी जनित रोगजनकों को दबाता है, मिट्टी की संरचना में सुधार करता है।",
+                variants: ["1kg", "5kg", "25kg"],
+                reviews: [{ rating: 5, comment: "मिट्टी के लिए बहुत अच्छा है।" }]
+            },
+            "compost": {
+                name: "कम्पोस्ट",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Compost",
+                price: 80,
+                type: "विघटित कार्बनिक पदार्थ",
+                components: "फसल अवशेष, पशु खाद, पत्तियां आदि का मिश्रण",
+                method: "बुवाई से पहले मिट्टी में मिलाया जाता है, टॉपड्रेसिंग",
+                usage: "मिट्टी की संरचना, जल धारण क्षमता, वायु संचार में सुधार करता है, धीरे-धीरे पोषक तत्व प्रदान करता है, सूक्ष्मजीवों की गतिविधि बढ़ाता है।",
+                variants: ["10kg", "25kg", "50kg"],
+                reviews: []
+            },
+            "vermicompost": {
+                name: "वर्मीकम्पोस्ट",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Vermicompost",
+                price: 100,
+                type: "केंचुआ का मल",
+                components: "केंचुआ द्वारा संसाधित जैविक कचरा",
+                method: "कम्पोस्ट के समान, मिट्टी संशोधन, पॉटिंग मिक्स घटक",
+                usage: "पोषक तत्वों और लाभकारी सूक्ष्मजीवों से अत्यधिक समृद्ध, मिट्टी की उर्वरता और संरचना में सुधार के लिए उत्कृष्ट।",
+                variants: ["5kg", "10kg", "25kg"],
+                reviews: [{ rating: 5, comment: "पौधों के लिए जादू!" }]
+            },
+            "farmyard_manure": {
+                name: "खेत की खाद (Farmyard Manure - FYM)",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Farmyard+Manure",
+                price: 70,
+                type: "बिछाने की सामग्री के साथ पशुओं के मलमूत्र का विघटित मिश्रण",
+                components: "कम्पोस्टेड गाय का गोबर, मुर्गी खाद, भेड़ की खाद",
+                method: "मिट्टी में मिलाया जाता है",
+                usage: "जैविक पदार्थ, नाइट्रोजन, फास्फोरस और पोटेशियम प्रदान करता है, मिट्टी की संरचना और उर्वरता में सुधार करता है।",
+                variants: ["25kg", "50kg"],
+                reviews: []
+            },
+            "oil_cakes": {
+                name: "तेल केक (नीम के अलावा)",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Oil+Cakes",
+                price: 90,
+                type: "विभिन्न बीजों से तेल निकालने के बाद बचा हुआ अवशेष",
+                components: "करंज केक, महुआ केक, मूंगफली केक",
+                method: "मिट्टी संशोधन",
+                usage: "धीरे-धीरे पोषक तत्व (विशेषकर नाइट्रोजन) छोड़ता है और इसमें कुछ कीट-विकर्षक या कवकनाशी गुण भी हो सकते हैं।",
+                variants: ["1kg", "5kg"],
+                reviews: []
+            },
+            "biochar": {
+                name: "बायोचार",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Biochar",
+                price: 400,
+                type: "कार्बन-समृद्ध सामग्री",
+                components: "बायोमास पायरोलिसिस से उत्पन्न लकड़ी का कोयला",
+                method: "मिट्टी में मिलाया जाता है",
+                usage: "पानी और पोषक तत्वों के प्रतिधारण को बढ़ाता है, लाभकारी रोगाणुओं के लिए निवास स्थान प्रदान करता है, और दीर्घकालिक मिट्टी सुधार के लिए कार्बन को अलग करता है।",
+                variants: ["1kg", "5kg"],
+                reviews: []
+            },
+            "rock_phosphate": {
+                name: "रॉक फास्फेट",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Rock+Phosphate",
+                price: 180,
+                type: "पिसा हुआ प्राकृतिक रॉक फास्फेट",
+                components: "प्राकृतिक रॉक फास्फेट",
+                method: "मिट्टी में प्रयोग",
+                usage: "फास्फोरस का एक धीमी गति से रिलीज होने वाला स्रोत, अम्लीय मिट्टी में प्रभावी।",
+                variants: ["1kg", "5kg"],
+                reviews: []
+            },
+            "gypsum": {
+                name: "जिप्सम",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Gypsum",
+                price: 110,
+                type: "कृषि ग्रेड जिप्सम",
+                components: "कैल्शियम सल्फेट",
+                method: "मिट्टी में प्रयोग",
+                usage: "मिट्टी की संरचना, जल घुसपैठ में सुधार करता है, सोडिक/संकुचित मिट्टी में लवणता को कम करता है, कैल्शियम और सल्फर प्रदान करता है।",
+                variants: ["5kg", "25kg"],
+                reviews: []
+            },
+            "dolomite_lime": {
+                name: "डोलोमाइट लाइम",
+                category: "soil_conditioners",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Dolomite+Lime",
+                price: 95,
+                type: "पिसा हुआ डोलोमाइट",
+                components: "कैल्शियम मैग्नीशियम कार्बोनेट",
+                method: "मिट्टी में प्रयोग",
+                usage: "अम्लीय मिट्टी में पीएच बढ़ाता है, कैल्शियम और मैग्नीशियम प्रदान करता है।",
+                variants: ["5kg", "25kg"],
+                reviews: []
+            },
+            "zeolite": {
+                name: "जिओलाइट",
+                category: "soil_conditioner",
+                image: "https://placehold.co/400x300/A7F3D0/065F46?text=Zeolite",
+                price: 210,
+                type: "दानेदार जिओलाइट",
+                components: "जिओलाइट",
+                method: "मिट्टी में प्रयोग",
+                usage: "उच्च धनायन विनिमय क्षमता के कारण पोषक तत्व और पानी के प्रतिधारण में सुधार करता है।",
+                variants: ["1kg", "5kg"],
+                reviews: []
+            },
+            "soil_probiotics": {
+                name: "मिट्टी प्रोबायोटिक्स",
+                category: "probiotics",
+                image: "https://placehold.co/400x300/D1FAE5/065F46?text=Soil+Probiotics",
+                price: 340,
+                type: "मिट्टी के स्वास्थ्य के लिए लाभकारी बैक्टीरिया और कवक का संघ",
+                components: "बैसिलस, स्यूडोमोनास, लैक्टोबैसिलस प्रजातियों, यीस्ट और विशिष्ट फंगल स्ट्रेन सहित मिश्रण",
+                method: "मिट्टी में प्रयोग, कम्पोस्ट टी (मिट्टी में डालने या पर्ण स्प्रे के लिए)",
+                usage: "समग्र मिट्टी के स्वास्थ्य, पोषक तत्व चक्रण, रोग दमन और माइक्रोबियल विविधता में सुधार करते हैं।",
+                variants: ["500ml", "1 Liter"],
+                reviews: []
+            },
+            "plant_probiotics": {
+                name: "पौध प्रोबायोटिक्स",
+                category: "probiotics",
+                image: "https://placehold.co/400x300/ECFDF5/065F46?text=Plant+Probiotics",
+                price: 370,
+                type: "पौधे के ऊतकों (एंडोफाइट्स) या सतहों पर रहने वाले सूक्ष्मजीव",
+                components: "विशिष्ट एंडोफाइटिक बैक्टीरियल या फंगल स्ट्रेन",
+                method: "बीज उपचार, जड़ डुबाना, पर्ण स्प्रे",
+                usage: "पौधे के तनाव सहिष्णुता को बढ़ाते हैं, पोषक तत्व उपयोग दक्षता में सुधार करते हैं, और पौधे के ऊतकों के भीतर से ही पौधे के विकास को बढ़ावा देते हैं।",
+                variants: ["250ml", "500ml"],
+                reviews: []
+            }
+        };
+
+        let cart = []; // शॉपिंग कार्ट के लिए ग्लोबल एरे
+
+        // एक विशिष्ट पेज दिखाने और दूसरों को छिपाने का फ़ंक्शन
+        function showPage(pageId, productId = null) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+
+            // यदि यह उत्पाद विवरण पेज है, तो सामग्री लोड करें
+            if (pageId === 'product-detail-page' && productId) {
+                renderProductDetailPage(productId);
+            } else if (pageId === 'home-page') {
+                renderProductsGrid(); // होमपेज पर उत्पाद ग्रिड को रेंडर करें
+            } else if (pageId === 'shopping-cart-page') {
+                renderCart(); // कार्ट पेज को रेंडर करें
+            } else if (pageId === 'checkout-page') {
+                renderCheckoutSummary(); // चेकआउट सारांश को रेंडर करें
+            } else if (pageId === 'poultry-farming-page') {
+                calculatePoultryProfit(); // मुर्गी पालन कैलकुलेटर को इनिशियलाइज़ करें
+            }
+
+
+            // नए पेज के शीर्ष पर स्क्रॉल करें
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // यदि खुला हो तो मोबाइल नेविगेशन बंद करें
+            const navContent = document.getElementById('nav-content');
+            if (!navContent.classList.contains('hidden')) {
+                navContent.classList.add('hidden');
+            }
+        }
+
+        // किसी सेक्शन पर स्क्रॉल करने का फ़ंक्शन
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // उत्पादों को ग्रिड में रेंडर करें (अब होमपेज पर भी उपयोग किया जाता है)
+        function renderProductsGrid() {
+            const productGrid = document.getElementById('products-grid');
+            productGrid.innerHTML = ''; // मौजूदा उत्पादों को साफ़ करें
+
+            const selectedCategory = document.getElementById('filter-category').value;
+            const sortBy = document.getElementById('sort-by').value;
+            const searchQuery = document.getElementById('home-search-bar').value.toLowerCase(); // होमपेज सर्च बार से क्वेरी लें
+
+            let productsToRender = Object.keys(productData).map(key => ({ id: key, ...productData[key] }));
+
+            // Filter by category
+            if (selectedCategory !== 'all') {
+                productsToRender = productsToRender.filter(product => product.category === selectedCategory);
+            }
+
+            // Filter by search query
+            if (searchQuery) {
+                productsToRender = productsToRender.filter(product =>
+                    product.name.toLowerCase().includes(searchQuery) ||
+                    product.usage.toLowerCase().includes(searchQuery) ||
+                    product.type.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            // Sort products
+            if (sortBy === 'price-asc') {
+                productsToRender.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-desc') {
+                productsToRender.sort((a, b) => b.price - a.price);
+            } else if (sortBy === 'newest') {
+                // For a real app, you'd have a 'dateAdded' or similar field
+                // For this demo, we'll just reverse the order for 'newest'
+                productsToRender.reverse();
+            }
+            // 'popularity' sorting would require backend data (e.g., sales count, view count)
+
+            if (productsToRender.length === 0) {
+                productGrid.innerHTML = '<p class="text-center text-gray-600 text-xl col-span-full">कोई उत्पाद नहीं मिला।</p>';
+                return;
+            }
+
+            productsToRender.forEach(product => {
+                const productCardHtml = `
+                    <div class="product-card cursor-pointer" onclick="showPage('product-detail-page', '${product.id}')">
+                        <div class="icon-container">
+                            <i class="${getProductIcon(product.id)}"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm flex-grow mb-2">${product.usage.substring(0, 100)}...</p>
+                        <span class="price">₹${product.price}</span>
+                        <div class="product-actions">
+                            <button class="add-to-cart-grid-btn text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 transition duration-300" onclick="addToCart('${product.id}', 1); event.stopPropagation();">
+                                <i class="fas fa-cart-plus mr-2"></i> कार्ट में जोड़ें
+                            </button>
+                            <button class="learn-more-grid-btn text-white font-bold py-2 px-4 rounded-full hover:bg-yellow-700 transition duration-300" onclick="showPage('product-detail-page', '${product.id}'); event.stopPropagation();">
+                                और जानें
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productGrid.innerHTML += productCardHtml;
+            });
+        }
+
+        // उत्पाद आईडी के आधार पर आइकन प्राप्त करें
+        function getProductIcon(productId) {
+            // Updated to use product.category for more consistent icons
+            const product = productData[productId];
+            if (!product) return "fas fa-box"; // Default icon if product not found
+
+            switch (product.category) {
+                case "bio_fertilizers": return "fas fa-seedling";
+                case "bio_pesticides": return "fas fa-bug";
+                case "bio_stimulants": return "fas fa-flask";
+                case "decomposers": return "fas fa-recycle";
+                case "micro_nutrients": return "fas fa-microscope";
+                case "nano_tech": return "fas fa-atom";
+                case "soil_conditioners": return "fas fa-earth-americas"; // More general soil icon
+                case "probiotics": return "fas fa-bacteria";
+                default: return "fas fa-box";
+            }
+        }
+
+        // उत्पाद विवरण पेज को रेंडर करें
+        function renderProductDetailPage(productId) {
+            const product = productData[productId];
+            if (!product) {
+                document.getElementById('product-detail-title').innerText = "उत्पाद नहीं मिला";
+                document.getElementById('product-detail-description').innerText = "क्षमा करें, यह उत्पाद उपलब्ध नहीं है।";
+                document.getElementById('product-detail-image').src = "https://placehold.co/600x400/FF0000/FFFFFF?text=Product+Not+Found";
+                document.getElementById('product-detail-price').innerText = "";
+                document.getElementById('product-detail-type').innerText = "";
+                document.getElementById('product-detail-components').innerText = "";
+                document.getElementById('product-detail-method').innerText = "";
+                document.getElementById('product-detail-usage').innerText = "";
+                document.getElementById('add-to-cart-button').style.display = 'none';
+                document.getElementById('buy-now-button').style.display = 'none';
+                document.getElementById('product-variants').innerHTML = ''; // Clear variants
+                document.getElementById('product-reviews').innerHTML = ''; // Clear reviews
+                document.getElementById('product-calculated-price').innerText = ""; // Clear calculated price
+                return;
+            }
+
+            document.getElementById('product-detail-title').innerText = product.name;
+            document.getElementById('product-detail-image').src = product.image;
+            document.getElementById('product-detail-description').innerText = product.usage; // विवरण के लिए उपयोग का उपयोग करें
+            document.getElementById('product-detail-type').innerHTML = `<span class="font-semibold">उत्पाद का प्रकार:</span> ${product.type}`;
+            document.getElementById('product-detail-components').innerHTML = `<span class="font-semibold">प्रमुख घटक:</span> ${product.components}`;
+            document.getElementById('product-detail-method').innerHTML = `<span class="font-semibold">प्रयोग का तरीका:</span> ${product.method}`;
+            document.getElementById('product-detail-usage').innerHTML = `<span class="font-semibold">मुख्य उपयोग/कार्य:</span> ${product.usage}`;
+            document.getElementById('product-detail-price').innerText = `मूल्य: ₹${product.price}`;
+
+            // Set current product ID for live price calculation
+            document.getElementById('product-quantity').dataset.productId = productId;
+            document.getElementById('product-quantity').value = 1; // Reset quantity to 1
+            updateProductDetailPrice(); // Calculate initial price
+
+            // Render Variants
+            const productVariantsContainer = document.getElementById('product-variants');
+            productVariantsContainer.innerHTML = '<h4 class="font-semibold text-gray-700 mb-2">विकल्प:</h4><div class="flex flex-wrap gap-2"></div>';
+            const variantsFlexContainer = productVariantsContainer.querySelector('div');
+            if (product.variants && product.variants.length > 0) {
+                product.variants.forEach(variant => {
+                    variantsFlexContainer.innerHTML += `<button class="px-4 py-2 border rounded-full text-sm hover:bg-gray-200">${variant}</button>`;
+                });
+            } else {
+                variantsFlexContainer.innerHTML += `<p class="text-gray-500 text-sm">कोई विकल्प उपलब्ध नहीं है</p>`;
+            }
+
+            // Render Reviews
+            const productReviewsContainer = document.getElementById('product-reviews');
+            productReviewsContainer.innerHTML = ''; // Clear existing
+            if (product.reviews && product.reviews.length > 0) {
+                const avgRating = product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length;
+                let starsHtml = '';
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= avgRating) {
+                        starsHtml += '<i class="fas fa-star rating-star"></i>';
+                    } else if (i - 0.5 <= avgRating) {
+                        starsHtml += '<i class="fas fa-star-half-alt rating-star"></i>';
+                    } else {
+                        starsHtml += '<i class="far fa-star rating-star"></i>';
+                    }
+                }
+                productReviewsContainer.innerHTML = `
+                    <div class="flex items-center text-yellow-500 mb-2">
+                        ${starsHtml} (${avgRating.toFixed(1)}/5)
+                        <span class="text-gray-600 ml-2">(${product.reviews.length} समीक्षाएँ)</span>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                        ${product.reviews.map(review => `<li>${review.comment} (${review.rating}/5)</li>`).join('')}
+                    </ul>
+                `;
+            } else {
+                productReviewsContainer.innerHTML = `<p class="text-sm text-gray-500">अभी तक कोई समीक्षा नहीं है। अपनी समीक्षा सबमिट करने वाले पहले व्यक्ति बनें!</p>`;
+            }
+
+
+            const addToCartBtn = document.getElementById('add-to-cart-button');
+            const buyNowBtn = document.getElementById('buy-now-button');
+
+            addToCartBtn.style.display = 'inline-flex';
+            buyNowBtn.style.display = 'inline-flex';
+
+            // पुराने इवेंट लिसनर को हटा दें ताकि डुप्लीकेट न हों
+            const newAddToCartBtn = addToCartBtn.cloneNode(true);
+            addToCartBtn.parentNode.replaceChild(newAddToCartBtn, addToCartBtn);
+            newAddToCartBtn.onclick = () => {
+                const quantity = parseInt(document.getElementById('product-quantity').value);
+                addToCart(productId, quantity);
+            };
+
+            const newBuyNowBtn = buyNowBtn.cloneNode(true);
+            buyNowBtn.parentNode.replaceChild(newBuyNowBtn, buyNowBtn);
+            newBuyNowBtn.onclick = () => {
+                const quantity = parseInt(document.getElementById('product-quantity').value);
+                addToCart(productId, quantity); // Buy Now also adds to cart
+                showPage('checkout-page'); // Directly go to checkout
+            };
+        }
+
+        // प्रोडक्ट डिटेल पेज पर लाइव मूल्य गणना
+        function updateProductDetailPrice() {
+            const productId = document.getElementById('product-quantity').dataset.productId;
+            const quantity = parseInt(document.getElementById('product-quantity').value);
+            const product = productData[productId];
+
+            if (product && !isNaN(quantity) && quantity > 0) {
+                const calculatedPrice = product.price * quantity;
+                document.getElementById('product-calculated-price').innerText = `कुल मूल्य: ₹${calculatedPrice}`;
+            } else {
+                document.getElementById('product-calculated-price').innerText = `कुल मूल्य: ₹0`;
+            }
+        }
+
+        // कार्ट में उत्पाद जोड़ें
+        function addToCart(productId, quantity = 1) {
+            const product = productData[productId];
+            if (product) {
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({ id: productId, name: product.name, price: product.price, image: product.image, quantity: quantity });
+                }
+                updateCartCount();
+                alertMessage(`${product.name} कार्ट में जोड़ा गया!`); // कस्टम अलर्ट
+            }
+        }
+
+        // कार्ट आइटम की मात्रा अपडेट करें
+        function updateCartQuantity(productId, change) {
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += change;
+                if (cart[itemIndex].quantity <= 0) {
+                    cart.splice(itemIndex, 1); // आइटम हटा दें यदि मात्रा 0 या उससे कम हो
+                }
+            }
+            renderCart();
+            updateCartCount();
+        }
+
+        // कार्ट से आइटम हटाएँ
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            renderCart();
+            updateCartCount();
+            alertMessage("कार्ट से आइटम हटाया गया।"); // कस्टम अलर्ट
+        }
+
+        // कार्ट आइकन में आइटम की संख्या अपडेट करें
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = count;
+        }
+
+        // शॉपिंग कार्ट पेज को रेंडर करें
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            let total = 0;
+
+            cartItemsContainer.innerHTML = ''; // मौजूदा आइटम साफ़ करें
+
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    const cartItemHtml = `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-md">
+                            <div class="flex-grow">
+                                <h4 class="text-lg font-semibold">${item.name}</h4>
+                                <p class="text-gray-600">मूल्य: ₹${item.price} x ${item.quantity}</p>
+                                <p class="text-gray-700 font-bold">कुल: ₹${itemTotal}</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="bg-red-500 text-white px-3 py-1 rounded-full text-sm hover:bg-red-600" onclick="updateCartQuantity('${item.id}', -1)">-</button>
+                                <span class="font-bold">${item.quantity}</span>
+                                <button class="bg-green-500 text-white px-3 py-1 rounded-full text-sm hover:bg-green-600" onclick="updateCartQuantity('${item.id}', 1)">+</button>
+                                <button class="bg-gray-400 text-white px-3 py-1 rounded-full text-sm hover:bg-gray-500" onclick="removeFromCart('${item.id}')">हटाएँ</button>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.innerHTML += cartItemHtml;
+                });
+            }
+            document.getElementById('cart-total').innerText = `₹${total}`;
+        }
+
+        // चेकआउट सारांश को रेंडर करें
+        function renderCheckoutSummary() {
+            const checkoutProductTotal = document.getElementById('checkout-product-total');
+            const checkoutShippingCost = document.getElementById('checkout-shipping-cost');
+            const checkoutGrandTotal = document.getElementById('checkout-grand-total');
+
+            let productSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let shippingCost = 50; // Default standard shipping
+
+            // Check if express shipping is selected (conceptual for now)
+            const expressShippingRadio = document.querySelector('input[name="shipping-method"][value="express"]');
+            if (expressShippingRadio && expressShippingRadio.checked) {
+                shippingCost = 150;
+            }
+
+            let grandTotal = productSubtotal + shippingCost;
+
+            checkoutProductTotal.innerText = `₹${productSubtotal}`;
+            checkoutShippingCost.innerText = `₹${shippingCost}`;
+            checkoutGrandTotal.innerText = `₹${grandTotal}`;
+        }
+
+
+        // ऑर्डर प्लेस करें (सरल डेमो)
+        function placeOrder() {
+            if (cart.length === 0) {
+                alertMessage("आपका कार्ट खाली है। कृपया चेकआउट करने से पहले कुछ आइटम जोड़ें।");
+                return;
+            }
+            // वास्तविक दुनिया में, यहां भुगतान गेटवे एकीकरण और सर्वर-साइड ऑर्डर प्रोसेसिंग होगी।
+            // इस डेमो के लिए, हम बस ऑर्डर की पुष्टि पेज पर जाएंगे।
+            cart = []; // कार्ट खाली करें
+            updateCartCount();
+            showPage('order-confirmation-page');
+        }
+
+        // कस्टम अलर्ट मैसेज बॉक्स
+        function alertMessage(message) {
+            const alertBox = document.createElement('div');
+            alertBox.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 2000;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+                font-size: 1.1rem;
+            `;
+            alertBox.innerText = message;
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.style.opacity = 1;
+            }, 10);
+
+            setTimeout(() => {
+                alertBox.style.opacity = 0;
+                alertBox.addEventListener('transitionend', () => alertBox.remove());
+            }, 3000); // 3 सेकंड बाद गायब
+        }
+
+        // उत्पाद खोजें (फ्रंटएंड फ़िल्टरिंग)
+        function searchProducts(query) {
+            document.getElementById('home-search-bar').value = query; // सर्च बार में क्वेरी अपडेट करें
+            renderProductsGrid(); // उत्पादों को फिर से रेंडर करें
+        }
+
+        // मुर्गी पालन लाभ कैलकुलेटर
+        function calculatePoultryProfit() {
+            const initialInvestment = parseFloat(document.getElementById('calc-initial-investment').value) || 0;
+            const numChicks = parseFloat(document.getElementById('calc-num-chicks').value) || 0;
+            const maleChicksPercent = parseFloat(document.getElementById('calc-male-chicks-percent').value) || 0;
+            const eggPrice = parseFloat(document.getElementById('calc-egg-price').value) || 0;
+            const monthlyRoiPercent = parseFloat(document.getElementById('calc-monthly-roi-percent').value) || 0;
+            const eggProductionStartMonths = parseFloat(document.getElementById('calc-egg-production-start-months').value) || 0;
+            const dailyEggProductionPerHen = parseFloat(document.getElementById('calc-daily-egg-production-per-hen').value) || 0;
+            const monthsToCalculate = parseFloat(document.getElementById('calc-months-to-calculate').value) || 0;
+
+            const femaleHens = numChicks * (1 - (maleChicksPercent / 100));
+            const monthlyRoiIncome = initialInvestment * (monthlyRoiPercent / 100);
+            const dailyEggProduction = femaleHens * dailyEggProductionPerHen;
+            const monthlyEggRevenue = dailyEggProduction * eggPrice * 30; // Assuming 30 days in a month
+
+            let totalEstimatedReturn = 0;
+            if (monthsToCalculate > eggProductionStartMonths) {
+                // Calculate ROI income for all months
+                totalEstimatedReturn += monthlyRoiIncome * monthsToCalculate;
+                // Calculate egg revenue for months after production starts
+                totalEstimatedReturn += monthlyEggRevenue * (monthsToCalculate - eggProductionStartMonths);
+            } else {
+                totalEstimatedReturn += monthlyRoiIncome * monthsToCalculate;
+            }
+
+            document.getElementById('res-female-hens').innerText = femaleHens.toFixed(0);
+            document.getElementById('res-monthly-roi-income').innerText = `₹${monthlyRoiIncome.toFixed(2)}`;
+            document.getElementById('res-daily-egg-production').innerText = `${dailyEggProduction.toFixed(0)} अंडे`;
+            document.getElementById('res-monthly-egg-revenue').innerText = `₹${monthlyEggRevenue.toFixed(2)}`;
+            document.getElementById('res-total-months').innerText = monthsToCalculate.toFixed(0);
+            document.getElementById('res-total-estimated-return').innerText = `₹${totalEstimatedReturn.toFixed(2)}`;
+        }
+
+
+        // नेविगेशन लिंक के लिए इवेंट लिसनर
+        document.addEventListener('DOMContentLoaded', () => {
+            // प्रारंभिक पेज को होम-पेज पर सेट करें
+            showPage('home-page');
+            updateCartCount(); // पेज लोड पर कार्ट काउंट अपडेट करें
+
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    // यदि href="#" है और onclick में showPage है, तो डिफ़ॉल्ट व्यवहार रोकें
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                    }
+                    // showPage फ़ंक्शन सीधे onclick विशेषता में कॉल किया जाता है
+                });
+            });
+
+            // मोबाइल नेविगेशन टॉगल करें
+            const navToggle = document.getElementById('nav-toggle');
+            const navContent = document.getElementById('nav-content');
+
+            navToggle.addEventListener('click', () => {
+                navContent.classList.toggle('hidden');
+            });
+
+            // जब किसी लिंक पर क्लिक किया जाए तो मोबाइल नेविगेशन बंद करें
+            navContent.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!navContent.classList.contains('hidden')) {
+                        navContent.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Filter and sort dropdowns now have onchange attributes in HTML
+            // document.getElementById('filter-category').addEventListener('change', renderProductsGrid);
+            // document.getElementById('sort-by').addEventListener('change', renderProductsGrid);
+
+            // Initial render of products when home page is first shown
+            renderProductsGrid();
+        });
+
+        // Back button functionality
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
